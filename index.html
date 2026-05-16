@@ -278,6 +278,43 @@
   }
   .filter-btn:hover { background: var(--gray-bg); }
   .filter-btn.active { background: var(--navy); color: white; border-color: var(--navy); }
+  /* Dataset toggle (Mirror | Native) — primary control above filters */
+  .dataset-toggle {
+    display: inline-flex;
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 4px;
+    margin: 8px 0 24px;
+    gap: 4px;
+  }
+  .ds-btn {
+    background: transparent;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s;
+  }
+  .ds-btn:hover { background: var(--gray-bg); }
+  .ds-btn.active {
+    background: var(--navy);
+    color: white;
+  }
+  .ds-btn .ds-label {
+    display: block;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.2;
+  }
+  .ds-btn .ds-sub {
+    display: block;
+    font-size: 11px;
+    opacity: 0.7;
+    margin-top: 2px;
+  }
+  .filter-group { display: flex; gap: 6px; flex-wrap: wrap; }
   .filter-btn.run-all {
     background: var(--gold, #B8860B);
     color: white;
@@ -476,21 +513,17 @@
 <!-- ============================================================ -->
 <div class="hero">
   <div class="hero-content">
-    <div class="hero-tag">PROPOSAL DEMO · SEI</div>
-    <h1>MuleSoft → <span class="gold">Apigee X</span> Integration Migration</h1>
+    <div class="hero-tag">SEI · MULESOFT → APIGEE X</div>
+    <h1>The migration, <span class="gold">proven</span> — on your real Canvas data.</h1>
     <p class="lead">
-      SEI runs 285 integration APIs across five architectural patterns, serving 28
-      applications and 31 million calls a year. Of those, 115 are strong Apigee
-      candidates by SEI's own selection — consumer-facing, minimal transformation.
-      The other 170 stay on MuleSoft, where they belong. Below: the today vs target
-      architecture, the decision tree your engineers will own, and a live POC against
-      33 representative endpoints proving the approach works on your real Canvas data.
+      Two architectures. Same backend. Both live.
+      <strong>Click any row below</strong> to re-test against real Canvas right now.
     </p>
     <div class="hero-metrics">
-      <div class="hero-metric"><div class="v">285</div><div class="l">APIs in your estate</div></div>
-      <div class="hero-metric"><div class="v">115</div><div class="l">In migration scope</div></div>
-      <div class="hero-metric"><div class="v">31M</div><div class="l">Calls/year carried</div></div>
-      <div class="hero-metric"><div class="v">28</div><div class="l">Apps depending on this</div></div>
+      <div class="hero-metric"><div class="v">285</div><div class="l">APIs in estate</div></div>
+      <div class="hero-metric"><div class="v">115</div><div class="l">In scope</div></div>
+      <div class="hero-metric"><div class="v">31M</div><div class="l">Calls/year</div></div>
+      <div class="hero-metric"><div class="v">28</div><div class="l">Apps depending</div></div>
     </div>
   </div>
 </div>
@@ -1149,7 +1182,7 @@
     </div>
     <div class="arch-body">
       <p style="margin-bottom: 24px; color: var(--gray); font-size: 14px;">
-        The mirror approach optimizes for migration risk — three proxies that match MuleSoft's three projects, URIs preserved, 28 consumer apps unchanged. That is the right call for the in-scope 115 APIs. It is <em>not</em> how Apigee was designed to be built. Below: the two philosophies side by side, what native Apigee would look like for SEI's Canvas surface, and the hybrid that lives in the architecture standards deliverable.
+        Mirror for the migration. Native for everything after.
       </p>
 
       <svg class="arch-svg" viewBox="0 0 1280 540" xmlns="http://www.w3.org/2000/svg">
@@ -1343,27 +1376,10 @@
         </tbody>
       </table>
 
-      <h3 style="margin-top: 24px; margin-bottom: 14px; font-size: 18px; color: var(--navy);">The recommendation: a hybrid the engagement makes explicit</h3>
-
-      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 28px;">
-        <div style="background: white; border: 1px solid var(--rule); border-radius: 8px; padding: 18px; border-left: 4px solid #E15A24;">
-          <div style="font-size: 11px; font-weight: 700; color: #E15A24; letter-spacing: 2px; margin-bottom: 8px;">FOR THE 115 IN-SCOPE MIGRATION</div>
-          <div style="font-size: 14px; line-height: 1.6; color: var(--body);">
-            Use the mirror approach. Three proxies, preserved URIs, 14 weeks, zero client impact. Already validated by the POC. Every migrated proxy ships with an ADR noting it's a Phase 2 refactor candidate.
-          </div>
-        </div>
-        <div style="background: white; border: 1px solid var(--rule); border-radius: 8px; padding: 18px; border-left: 4px solid #1A73E8;">
-          <div style="font-size: 11px; font-weight: 700; color: #1A73E8; letter-spacing: 2px; margin-bottom: 8px;">FOR EVERYTHING SEI BUILDS NEXT</div>
-          <div style="font-size: 14px; line-height: 1.6; color: var(--body);">
-            Use the native pattern. Domain-aligned proxies, Shared Flows for cross-cutting concerns, API Products for consumer access. This <em>is</em> the architecture standards deliverable in RFP Slide 6.
-          </div>
-        </div>
-      </div>
-
-      <div style="background: var(--navy-dark, #061A30); color: white; padding: 22px 26px; border-radius: 8px; border-left: 4px solid var(--gold);">
-        <div style="font-size: 11px; font-weight: 700; color: var(--gold-lt); letter-spacing: 2px; margin-bottom: 8px;">PROOF POINT · A WORKING NATIVE PROXY LIVES ALONGSIDE THE MIRROR</div>
-        <div style="font-size: 14px; line-height: 1.6;">
-          A fourth proxy — <code style="background: rgba(255,255,255,0.1); padding: 1px 6px; border-radius: 3px;">courses-api-native</code> at <code style="background: rgba(255,255,255,0.1); padding: 1px 6px; border-radius: 3px;">/courses/v1</code> — is deployed in the same eval Apigee org as the three mirror proxies. Same Canvas backend (via the same Tailscale Funnel tunnel), but with Shared Flow references instead of inlined policies and a domain-aligned URI scheme. SEI architects can hit <code style="background: rgba(255,255,255,0.1); padding: 1px 6px; border-radius: 3px;">/system-canvas/v3/courses/1</code> and <code style="background: rgba(255,255,255,0.1); padding: 1px 6px; border-radius: 3px;">/courses/v1/1</code> back-to-back, compare bundle structure and policy attachment, and decide whether the value justifies a Phase 2 refactor pilot. <em>Same data. Two shapes. Real proof of both philosophies.</em>
+      <div style="background: var(--navy-dark, #061A30); color: white; padding: 18px 24px; border-radius: 8px; border-left: 4px solid var(--gold); display: flex; gap: 18px; align-items: center;">
+        <div style="font-size: 24px;">↓</div>
+        <div style="font-size: 14px;">
+          Both architectures are deployed and live. Use the <strong style="color: var(--gold-lt);">Mirror</strong> / <strong style="color: var(--gold-lt);">Native</strong> toggle on the Live Dashboard below to test either, against the same real Canvas.
         </div>
       </div>
     </div>
@@ -1374,29 +1390,25 @@
 <!-- DASHBOARD                                                     -->
 <!-- ============================================================ -->
 <section id="dashboard">
-  <div class="section-tag">LIVE END-TO-END TEST · POC</div>
-  <h2 class="section-title">33 endpoints proven · the falsifiability check on the approach</h2>
-  <p class="section-lead">
-    The 33 endpoints below are a vertical slice through the 115-API migration scope —
-    three MuleSoft projects (system-canvas-api, experience-canvas-api, process-canvas-sis-api)
-    chosen because together they exercise every pattern that will appear in the full migration.
-    Each is deployed on a live Apigee X eval org on GCP, proxying to a real Canvas LMS instance.
-    <strong>Click any row to re-test it live against Apigee right now</strong> — no cached
-    answers. Or hit <em>Run All Live</em> to re-run all 33 sequentially.
-    <em>This is the proof, not the migration itself.</em>
-  </p>
+  <div class="section-tag">LIVE DASHBOARD</div>
+  <h2 class="section-title">Both architectures, real Canvas, click any row to re-test live.</h2>
+
+  <div class="dataset-toggle">
+    <button class="ds-btn active" data-dataset="mirror">
+      <span class="ds-label">Mirror</span>
+      <span class="ds-sub">3 proxies · 33 endpoints</span>
+    </button>
+    <button class="ds-btn" data-dataset="native">
+      <span class="ds-label">Native Apigee</span>
+      <span class="ds-sub">9 proxies · 23 endpoints</span>
+    </button>
+  </div>
 
   <div class="stats" id="stats"></div>
 
   <div class="toolbar">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="ok">✓ Working</button>
-    <button class="filter-btn" data-filter="nodata">○ No data (path OK)</button>
-    <button class="filter-btn" data-filter="rewrite">✗ Needs rewrite</button>
-    <button class="filter-btn" data-filter="system">system-canvas</button>
-    <button class="filter-btn" data-filter="experience">experience-canvas</button>
-    <button class="filter-btn" data-filter="process">process-canvas</button>
-    <button class="filter-btn run-all" id="run-all-btn" title="Re-test all 33 endpoints live, sequentially">▶ Run All Live</button>
+    <div class="filter-group" id="filter-group"></div>
+    <button class="filter-btn run-all" id="run-all-btn">▶ Run All Live</button>
     <div class="spacer"></div>
     <span class="meta" id="meta"></span>
   </div>
@@ -1408,52 +1420,28 @@
 <!-- APPROACH                                                      -->
 <!-- ============================================================ -->
 <section id="approach">
-  <div class="section-tag">HOW WE'LL WORK TOGETHER</div>
-  <h2 class="section-title">14 weeks · one architect · your engineers build</h2>
+  <div class="section-tag">ENGAGEMENT</div>
+  <h2 class="section-title">14 weeks · one architect · your engineers build.</h2>
   <p class="section-lead">
-    Your team has the engineers. You don't need ours. What you need is someone who has
-    done this migration before to set the patterns, review what you build, and unblock you
-    when Apigee surprises you — which it will. Here's what each phase looks like from
-    your seat, not ours.
+    Advisory only. I set the patterns; SEI engineers ship the code.
   </p>
 
   <div class="arch-callouts" style="grid-template-columns: repeat(4, 1fr);">
     <div class="callout">
-      <div class="h">Weeks 1–3 · Foundation</div>
-      <div class="b">
-        Your team ships their first three or four Apigee X proxies in production-equivalent
-        conditions. On purpose, these are the easiest APIs you have — the goal isn't speed,
-        it's earning the right to migrate the harder ones later. By end of week 3 your
-        engineers have hit real Apigee gotchas, fixed them, and have a working pattern
-        they trust.
-      </div>
+      <div class="h">Weeks 1–3</div>
+      <div class="b"><strong>Foundation.</strong> First 3–4 easy proxies ship in production-equivalent conditions. Patterns earned, not slide-deck'd.</div>
     </div>
     <div class="callout">
-      <div class="h">Weeks 4–6 · FERPA arrives</div>
-      <div class="b">
-        Student records, enrollment, grades start moving. Pace slows on purpose. Each
-        proxy goes through a security review against the FERPA redaction policy before
-        it touches a live consumer. You'll have a documented audit trail by week 6
-        — the artifact your compliance team needs, not a slide that talks about it.
-      </div>
+      <div class="h">Weeks 4–6</div>
+      <div class="b"><strong>FERPA.</strong> Student records start moving. Security review gates every proxy. Audit trail by week 6.</div>
     </div>
     <div class="callout">
-      <div class="h">Weeks 7–10 · Your team owns it</div>
-      <div class="b">
-        Bulk of the migration happens here. Your engineers build independently from
-        the templates. I shift from pair-programming to code review — catching what's
-        missed, not writing what's needed. Mid-phase we re-test the call graph
-        against what's actually been migrated so we can spot drift early.
-      </div>
+      <div class="h">Weeks 7–10</div>
+      <div class="b"><strong>Your team owns it.</strong> Bulk migration. I shift from pair-programming to code review. Mid-phase: re-test the call graph against what shipped.</div>
     </div>
     <div class="callout">
-      <div class="h">Weeks 11–14 · The hard tail + handover</div>
-      <div class="b">
-        Saved for last on purpose: Workday SOAP, the encrypted portrait flow,
-        anything with multi-backend composition. Your team now has the muscle memory
-        to handle them. Final two weeks: cutover playbook, runbook walkthrough, and a
-        sit-down with your ops team so you can run this without me when I leave.
-      </div>
+      <div class="h">Weeks 11–14</div>
+      <div class="b"><strong>Hard tail + handover.</strong> Workday SOAP, portrait crypto, multi-backend composition. Runbook walkthrough; SEI runs it without me.</div>
     </div>
   </div>
 </section>
@@ -1475,35 +1463,101 @@
 </footer>
 
 <script src="results.js?v=__CACHEBUST__"></script>
+<script src="results-native.js?v=__CACHEBUST__"></script>
 <script>
-let data = null;
+// Two datasets share the same dashboard UI. The active one drives stats,
+// filter chips, grid, and Run All Live. Toggle = dataset switch.
+const DATASETS = { mirror: null, native: null };
+let currentDataset = 'mirror';
+let data = null;          // current dataset
 let filter = 'all';
 
+// Per-dataset filter chip definitions. Mirror filters by Mule-layer category
+// (system/experience/process). Native filters by business domain.
+const FILTERS = {
+  mirror: [
+    { id: 'all',         label: 'All' },
+    { id: 'ok',          label: '✓ Working' },
+    { id: 'nodata',      label: '○ No data' },
+    { id: 'rewrite',     label: '✗ Rewrite' },
+    { id: 'system',      label: 'system' },
+    { id: 'experience',  label: 'experience' },
+    { id: 'process',     label: 'process' },
+  ],
+  native: [
+    { id: 'all',           label: 'All' },
+    { id: 'ok',            label: '✓ Working' },
+    { id: 'nodata',        label: '○ No data' },
+    { id: 'courses',       label: 'courses' },
+    { id: 'enrollments',   label: 'enrollments' },
+    { id: 'assignments',   label: 'assignments' },
+    { id: 'discussions',   label: 'discussions' },
+    { id: 'users',         label: 'users' },
+    { id: 'terms',         label: 'terms' },
+    { id: 'conversations', label: 'conversations' },
+    { id: 'sis-jobs',      label: 'sis-jobs' },
+    { id: 'identity',      label: 'identity' },
+  ],
+};
+
 function load() {
-  if (window.RESULTS) { data = window.RESULTS; render(); return; }
-  fetch('results.json?t=' + Date.now())
-    .then(r => r.json())
-    .then(d => { data = d; render(); })
-    .catch(() => {
-      document.getElementById('grid').innerHTML =
-        '<div class="empty">No test results yet. Run <code>bash test-all-33.sh</code> in the apigee-batch folder, then refresh.</div>';
-    });
+  DATASETS.mirror = window.RESULTS || null;
+  DATASETS.native = window.NATIVE_RESULTS || null;
+  switchDataset('mirror');
+}
+
+function switchDataset(name) {
+  currentDataset = name;
+  data = DATASETS[name];
+  filter = 'all';
+  document.querySelectorAll('.ds-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.dataset === name));
+  renderFilterChips();
+  if (!data) {
+    document.getElementById('stats').innerHTML = '';
+    document.getElementById('grid').innerHTML = `
+      <div class="empty">
+        No ${name} test results yet. Generate them:<br><br>
+        <code>${name === 'mirror'
+          ? 'bash apigee-batch/test-all-33.sh'
+          : 'bash apigee-native-pattern/make-snapshot.sh'}</code>
+      </div>`;
+    document.getElementById('meta').textContent = '';
+    return;
+  }
+  render();
+}
+
+function renderFilterChips() {
+  const html = FILTERS[currentDataset].map(f =>
+    `<button class="filter-btn${f.id === filter ? ' active' : ''}" data-filter="${f.id}">${f.label}</button>`
+  ).join('');
+  document.getElementById('filter-group').innerHTML = html;
+  document.querySelectorAll('#filter-group .filter-btn').forEach(b => {
+    b.onclick = () => {
+      filter = b.dataset.filter;
+      document.querySelectorAll('#filter-group .filter-btn').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      render();
+    };
+  });
 }
 
 function render() {
   const t = data.totals;
+  const proxyCount = data.proxy_count || 3;
   const pct = Math.round(t.working / t.total * 100);
   document.getElementById('stats').innerHTML = `
-    <div class="stat-card gold"><div class="label">Total Endpoints</div><div class="value">${t.total}</div><div class="sub">Across 3 Apigee proxies</div></div>
-    <div class="stat-card ok"><div class="label">Working / Path OK</div><div class="value">${t.working}</div><div class="sub">${pct}% of total</div></div>
-    <div class="stat-card rewrite"><div class="label">Per-Endpoint Logic</div><div class="value">${t.needs_rewrite}</div><div class="sub">Wave 2-4 engineering</div></div>
+    <div class="stat-card gold"><div class="label">Endpoints</div><div class="value">${t.total}</div><div class="sub">across ${proxyCount} ${currentDataset === 'mirror' ? 'mirror' : 'native'} proxies</div></div>
+    <div class="stat-card ok"><div class="label">Working</div><div class="value">${t.working}</div><div class="sub">${pct}% live + path-matched</div></div>
+    <div class="stat-card rewrite"><div class="label">Needs Rewrite</div><div class="value">${t.needs_rewrite}</div><div class="sub">design work, not infra</div></div>
     <div class="stat-card error"><div class="label">Infra Errors</div><div class="value">${t.errors}</div><div class="sub">Apigee 5xx / auth</div></div>
-    <div class="stat-card"><div class="label">Avg Response</div><div class="value">${avgTime()}<span style="font-size:14px;color:var(--gray);"> ms</span></div><div class="sub">End-to-end</div></div>
+    <div class="stat-card"><div class="label">Avg Response</div><div class="value">${avgTime()}<span style="font-size:14px;color:var(--gray);"> ms</span></div><div class="sub">end-to-end</div></div>
   `;
   const rows = data.endpoints.filter(applyFilter);
   document.getElementById('grid').innerHTML = rows.length ? rows.map(rowHtml).join('') :
     '<div class="empty">No endpoints match this filter.</div>';
-  document.getElementById('meta').textContent = `Showing ${rows.length} of ${data.endpoints.length}`;
+  document.getElementById('meta').textContent = `${rows.length} of ${data.endpoints.length} · last snapshot ${new Date(data.timestamp).toLocaleString()}`;
 }
 function avgTime() {
   const t = data.endpoints.map(e => e.time).filter(x => x > 0);
@@ -1686,14 +1740,11 @@ function closeModal() { document.getElementById('overlay').classList.remove('sho
 function escapeHtml(s) {
   return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
-document.querySelectorAll('.filter-btn').forEach(b => {
-  b.onclick = () => {
-    filter = b.dataset.filter;
-    document.querySelectorAll('.filter-btn').forEach(x => x.classList.remove('active'));
-    b.classList.add('active');
-    render();
-  };
+// Dataset toggle (Mirror | Native)
+document.querySelectorAll('.ds-btn').forEach(b => {
+  b.onclick = () => switchDataset(b.dataset.dataset);
 });
+// Filter chips are rendered per-dataset by renderFilterChips() — no global handler needed.
 document.querySelectorAll('.arch-toggle button').forEach(b => {
   b.onclick = () => {
     const which = b.dataset.arch;

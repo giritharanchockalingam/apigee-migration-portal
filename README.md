@@ -1,4 +1,4 @@
-# Apigee Migration Portal — Capella Canvas
+# Apigee Migration Portal — SEI Canvas
 
 A live demo portal for the MuleSoft → Apigee X integration migration. Visualizes
 current-state vs. target-state architecture and a real end-to-end test of 33
