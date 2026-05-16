@@ -417,13 +417,14 @@
 <!-- ============================================================ -->
 <div class="hero">
   <div class="hero-content">
-    <div class="hero-tag">PROPOSAL DEMO · CAPELLA UNIVERSITY</div>
+    <div class="hero-tag">PROPOSAL DEMO · SEI</div>
     <h1>MuleSoft → <span class="gold">Apigee X</span> Integration Migration</h1>
     <p class="lead">
-      Right tool for each workload class. Synchronous APIs move to Apigee X on GCP for
-      portfolio rationalization. Orchestration, batch and eventing stay on MuleSoft (or
-      evaluated for Phase 2). Architecture diagrams below show today's state, the target,
-      and a live test of 33 endpoints against real Canvas LMS data.
+      You don't need to migrate everything. Your consumer-facing synchronous APIs move
+      to Apigee X on GCP. Your orchestration, batch and event flows stay on MuleSoft
+      where they already work well. Below: what today looks like, what target looks
+      like, and a live test of 33 of your actual endpoints already running against
+      your Canvas data.
     </p>
     <div class="hero-metrics">
       <div class="hero-metric"><div class="v">285</div><div class="l">Total APIs in estate</div></div>
@@ -728,9 +729,9 @@
       </svg>
 
       <div class="arch-callouts">
-        <div class="callout"><div class="h">Apigee X for Sync</div><div class="b">Cloud-managed, fully integrated with Cloud Identity, KMS, Logging. Per-API rate limits, FERPA-redacting log policies, zero infra to operate.</div></div>
-        <div class="callout"><div class="h">MuleSoft for Async</div><div class="b">Stays where it excels: orchestration with foreach + state machines, batch jobs, eventing with retries and DLQ. No forced migration.</div></div>
-        <div class="callout"><div class="h">Phase 2 Evaluation</div><div class="b">Post-Wave 1 review of the 170 async APIs. Strategic platform decision rather than a one-shot replacement.</div></div>
+        <div class="callout"><div class="h">Why move the sync APIs</div><div class="b">Your team stops running middleware servers, patching runtimes, and sizing CloudHub workers for the consumer-facing traffic. The time saved goes back to building features.</div></div>
+        <div class="callout"><div class="h">Why keep MuleSoft for the rest</div><div class="b">Your orchestration and batch flows already work. Forcing them onto Apigee just rewrites code that wasn't broken — and Apigee isn't designed for that workload anyway. Don't pay twice.</div></div>
+        <div class="callout"><div class="h">What "Phase 2" actually means</div><div class="b">After the first wave proves out, we look at the 170 async APIs together and decide what (if anything) to move later. No commitment up front; you keep the option.</div></div>
       </div>
     </div>
   </div>
@@ -927,16 +928,16 @@
 
       <div class="arch-callouts">
         <div class="callout">
-          <div class="h">Expected Distribution</div>
-          <div class="b">Against SEI's broader integration estate: ~75% Apigee X · ~15% MuleSoft retain · ~10% Phase 2 evaluation. Based on the 33-endpoint POC pattern profile.</div>
+          <div class="h">What you'll find when you run it</div>
+          <div class="b">Roughly three out of four of your APIs fit Apigee. Most of the rest stay on MuleSoft. A handful are genuinely ambiguous and worth waiting on. That's the realistic split — not "100% Apigee" because nobody's estate looks like that.</div>
         </div>
         <div class="callout">
-          <div class="h">Engineer Self-Service</div>
-          <div class="b">Any new API SEI considers can be classified using this tree in under 30 seconds. The tree is the governance artifact, not a slide-ware deliverable.</div>
+          <div class="h">You run this, not me</div>
+          <div class="b">Once we hand this over, your engineers apply the tree on every new API they consider. You won't need to call me back to ask "which platform?" — and that's intentional. The decision stays yours.</div>
         </div>
         <div class="callout">
-          <div class="h">Audit Trail</div>
-          <div class="b">Each rule outcome is recorded against the proxy bundle in version control — every placement decision is traceable to a specific rule for compliance review.</div>
+          <div class="h">For when audit asks</div>
+          <div class="b">Every placement decision gets recorded against the proxy in version control with the rule number that justified it. When your compliance or audit team asks "why is this here," the answer is one git log away.</div>
         </div>
       </div>
     </div>
@@ -1113,30 +1114,52 @@
 <!-- APPROACH                                                      -->
 <!-- ============================================================ -->
 <section id="approach">
-  <div class="section-tag">MIGRATION APPROACH</div>
-  <h2 class="section-title">Four-wave engagement plan</h2>
+  <div class="section-tag">HOW WE'LL WORK TOGETHER</div>
+  <h2 class="section-title">14 weeks · one architect · your engineers build</h2>
   <p class="section-lead">
-    Two senior engineers · 14 weeks · coaching model · repeatable bundle generator pipeline.
-    The same Node.js script that produced the bundles for this demo runs at Capella against
-    their real Canvas tenant — change one config line, redeploy, done.
+    Your team has the engineers. You don't need ours. What you need is someone who has
+    done this migration before to set the patterns, review what you build, and unblock you
+    when Apigee surprises you — which it will. Here's what each phase looks like from
+    your seat, not ours.
   </p>
 
   <div class="arch-callouts" style="grid-template-columns: repeat(4, 1fr);">
     <div class="callout">
-      <div class="h">Wave 1 · Weeks 4–6</div>
-      <div class="b">15 simple pass-throughs. Volume builds the team's Apigee muscle memory. No FERPA-sensitive data.</div>
+      <div class="h">Weeks 1–3 · Foundation</div>
+      <div class="b">
+        Your team ships their first three or four Apigee X proxies in production-equivalent
+        conditions. On purpose, these are the easiest APIs you have — the goal isn't speed,
+        it's earning the right to migrate the harder ones later. By end of week 3 your
+        engineers have hit real Apigee gotchas, fixed them, and have a working pattern
+        they trust.
+      </div>
     </div>
     <div class="callout">
-      <div class="h">Wave 2 · Weeks 6–9</div>
-      <div class="b">30 APIs: 20 pass-throughs + 10 request/response. First FERPA-sensitive endpoints land here.</div>
+      <div class="h">Weeks 4–6 · FERPA arrives</div>
+      <div class="b">
+        Student records, enrollment, grades start moving. Pace slows on purpose. Each
+        proxy goes through a security review against the FERPA redaction policy before
+        it touches a live consumer. You'll have a documented audit trail by week 6
+        — the artifact your compliance team needs, not a slide that talks about it.
+      </div>
     </div>
     <div class="callout">
-      <div class="h">Wave 3 · Weeks 8–11</div>
-      <div class="b">37 APIs: complex pass-throughs + moderate R/R. Coaching shifts from pairing to code review.</div>
+      <div class="h">Weeks 7–10 · Your team owns it</div>
+      <div class="b">
+        Bulk of the migration happens here. Your engineers build independently from
+        the templates. I shift from pair-programming to code review — catching what's
+        missed, not writing what's needed. Mid-phase we re-test the call graph
+        against what's actually been migrated so we can spot drift early.
+      </div>
     </div>
     <div class="callout">
-      <div class="h">Wave 4 · Weeks 11–14</div>
-      <div class="b">33 R/R tail including ≥16-score outliers. Advisors focus on Workday SOAP + cutover playbooks.</div>
+      <div class="h">Weeks 11–14 · The hard tail + handover</div>
+      <div class="b">
+        Saved for last on purpose: Workday SOAP, the encrypted portrait flow,
+        anything with multi-backend composition. Your team now has the muscle memory
+        to handle them. Final two weeks: cutover playbook, runbook walkthrough, and a
+        sit-down with your ops team so you can run this without me when I leave.
+      </div>
     </div>
   </div>
 </section>
