@@ -278,6 +278,52 @@
   }
   .filter-btn:hover { background: var(--gray-bg); }
   .filter-btn.active { background: var(--navy); color: white; border-color: var(--navy); }
+  .filter-btn.run-all {
+    background: var(--gold, #B8860B);
+    color: white;
+    border-color: var(--gold, #B8860B);
+    font-weight: 600;
+    margin-left: 8px;
+  }
+  .filter-btn.run-all:hover { filter: brightness(1.08); }
+  .filter-btn.run-all:disabled { opacity: 0.55; cursor: progress; }
+  .row.testing { background: #FFF8E1; }
+  .row.testing .status::after {
+    content: "·";
+    display: inline-block;
+    animation: pulse 1s infinite;
+    margin-left: 6px;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+  .live-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-left: 8px;
+  }
+  .live-badge.live { background: #DCFCE7; color: #166534; }
+  .live-badge.diff { background: #FEF3C7; color: #92400E; }
+  .live-badge.fail { background: #FEE2E2; color: #991B1B; }
+  .live-badge.running { background: #DBEAFE; color: #1E40AF; }
+  .spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #DBEAFE;
+    border-top-color: #1E40AF;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
   .spacer { flex: 1; }
   .meta { font-size: 12px; color: var(--gray); }
   .grid {
@@ -1093,8 +1139,9 @@
     three MuleSoft projects (system-canvas-api, experience-canvas-api, process-canvas-sis-api)
     chosen because together they exercise every pattern that will appear in the full migration.
     Each is deployed on a live Apigee X eval org on GCP, proxying to a real Canvas LMS instance.
-    Click any row to see the Apigee URL, response timing, Canvas controller hit, and the raw
-    JSON. <em>This is the proof, not the migration itself.</em>
+    <strong>Click any row to re-test it live against Apigee right now</strong> — no cached
+    answers. Or hit <em>Run All Live</em> to re-run all 33 sequentially.
+    <em>This is the proof, not the migration itself.</em>
   </p>
 
   <div class="stats" id="stats"></div>
@@ -1107,6 +1154,7 @@
     <button class="filter-btn" data-filter="system">system-canvas</button>
     <button class="filter-btn" data-filter="experience">experience-canvas</button>
     <button class="filter-btn" data-filter="process">process-canvas</button>
+    <button class="filter-btn run-all" id="run-all-btn" title="Re-test all 33 endpoints live, sequentially">▶ Run All Live</button>
     <div class="spacer"></div>
     <span class="meta" id="meta"></span>
   </div>
@@ -1226,7 +1274,7 @@ function applyFilter(e) {
 }
 function rowHtml(e) {
   const i = data.endpoints.indexOf(e);
-  return `<div class="row ${e.class}" onclick="showDetails(${i})">
+  return `<div class="row ${e.class}" data-idx="${i}" onclick="runLive(${i})">
     <span class="verb verb-${e.method}">${e.method}</span>
     <span class="path">${escapeHtml(e.path)}</span>
     <span class="pill ${e.category}">${e.category}</span>
@@ -1235,22 +1283,159 @@ function rowHtml(e) {
     <span class="time">${Math.round(e.time*1000)}ms</span>
   </div>`;
 }
-function showDetails(idx) {
+
+// ── Live re-test of a single endpoint ─────────────────────────────────────
+// Click → modal opens immediately in "Running…" state, fires /api/test,
+// shows the actual response coming back from Apigee right now, and
+// compares status against the snapshot so you can see drift.
+async function runLive(idx) {
   const e = data.endpoints[idx];
-  document.getElementById('modal-title').textContent = `${e.method} ${e.path}`;
-  let bodyPreview;
-  try { bodyPreview = JSON.stringify(JSON.parse(e.body), null, 2); }
-  catch { bodyPreview = e.body || '(empty)'; }
-  document.getElementById('modal-body').innerHTML = `
-    <div class="modal-section"><h3>Apigee URL</h3><div class="v">${data.apigee}${escapeHtml(e.path)}</div></div>
-    <div class="modal-section"><h3>Result</h3><div class="v">
-      <strong>HTTP ${e.status}</strong> · ${e.verdict}<br>
-      ${e.size} bytes · ${Math.round(e.time*1000)} ms<br>
-      ${e.controller ? `Canvas: <code>${e.controller}.${e.action || '?'}</code>` : 'No Canvas controller match'}
-    </div></div>
-    <div class="modal-section"><h3>Response body (first 4 KB)</h3><pre>${escapeHtml(bodyPreview.substring(0, 4000))}</pre></div>
+  const overlay = document.getElementById('overlay');
+  const title = document.getElementById('modal-title');
+  const bodyEl = document.getElementById('modal-body');
+
+  title.innerHTML = `${e.method} ${escapeHtml(e.path)} <span class="live-badge running">running</span>`;
+  bodyEl.innerHTML = `
+    <div class="modal-section">
+      <h3>Live test in progress</h3>
+      <div class="v"><span class="spinner"></span>Calling Apigee at <code>${data.apigee}${escapeHtml(e.path)}</code> right now…</div>
+    </div>
+    <div class="modal-section">
+      <h3>Last snapshot (for comparison)</h3>
+      <div class="v">HTTP ${e.status} · ${Math.round(e.time*1000)} ms · captured ${data.timestamp}</div>
+    </div>
   `;
-  document.getElementById('overlay').classList.add('show');
+  overlay.classList.add('show');
+
+  // Mark the row as testing so the user sees feedback if they didn't open the modal
+  const rowEl = document.querySelector(`.row[data-idx="${idx}"]`);
+  if (rowEl) rowEl.classList.add('testing');
+
+  let live;
+  const startedAt = Date.now();
+  try {
+    const r = await fetch('/api/test', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ method: e.method, path: e.path }),
+    });
+    if (!r.ok) throw new Error(`portal /api/test returned HTTP ${r.status}`);
+    live = await r.json();
+  } catch (err) {
+    live = {
+      status: 0, size: 0, time_ms: Date.now() - startedAt,
+      body: '', error: err?.message || String(err),
+      url: `${data.apigee}${e.path}`,
+    };
+  }
+
+  if (rowEl) rowEl.classList.remove('testing');
+
+  // Classify the live result
+  const liveOk = live.status >= 200 && live.status < 300;
+  const sameAsSnapshot = live.status === e.status;
+  let badge;
+  if (live.error) badge = `<span class="live-badge fail">live · failed</span>`;
+  else if (liveOk && sameAsSnapshot) badge = `<span class="live-badge live">live · matches snapshot</span>`;
+  else if (sameAsSnapshot) badge = `<span class="live-badge live">live · matches snapshot</span>`;
+  else badge = `<span class="live-badge diff">live · differs from snapshot</span>`;
+
+  // Pretty-print body if JSON
+  let bodyPreview;
+  try { bodyPreview = JSON.stringify(JSON.parse(live.body), null, 2); }
+  catch { bodyPreview = live.body || '(empty)'; }
+  bodyPreview = bodyPreview.substring(0, 8000);
+
+  title.innerHTML = `${e.method} ${escapeHtml(e.path)} ${badge}`;
+  bodyEl.innerHTML = `
+    <div class="modal-section">
+      <h3>Live Apigee call</h3>
+      <div class="v"><code>${escapeHtml(live.url || data.apigee + e.path)}</code></div>
+    </div>
+    <div class="modal-section">
+      <h3>Live result <small style="color:var(--gray);font-weight:normal;">· tested ${new Date(live.tested_at || Date.now()).toLocaleTimeString()}</small></h3>
+      <div class="v">
+        <strong>HTTP ${live.status || '—'}</strong>${live.error ? ` · <span style="color:#991B1B;">${escapeHtml(live.error)}</span>` : ''}<br>
+        ${live.size} bytes · ${live.time_ms} ms${live.truncated ? ' · (body truncated at 64 KB)' : ''}<br>
+        ${live.controller ? `Canvas: <code>${escapeHtml(live.controller)}.${escapeHtml(live.action || '?')}</code>` : 'No Canvas controller match'}
+        ${live.content_type ? `<br>Content-Type: <code>${escapeHtml(live.content_type)}</code>` : ''}
+      </div>
+    </div>
+    <div class="modal-section">
+      <h3>Snapshot for comparison</h3>
+      <div class="v">
+        HTTP ${e.status} · ${e.size} bytes · ${Math.round(e.time*1000)} ms<br>
+        captured ${data.timestamp}
+        ${sameAsSnapshot ? '' : '<br><strong style="color:#92400E;">Status changed since last snapshot.</strong>'}
+      </div>
+    </div>
+    <div class="modal-section">
+      <h3>Response body</h3>
+      <pre>${escapeHtml(bodyPreview)}</pre>
+    </div>
+  `;
+
+  // Update the in-memory snapshot so the row reflects the latest reality
+  const ok2xx = live.status >= 200 && live.status < 300;
+  const klass = live.error ? 'error'
+              : ok2xx ? 'ok'
+              : live.status === 404 ? 'rewrite'
+              : 'error';
+  e.status = live.status;
+  e.size = live.size;
+  e.time = live.time_ms / 1000;
+  e.class = klass;
+  e.verdict = live.error ? '✗ FAIL' : ok2xx ? '✓ OK' : `✗ ${live.status}`;
+  if (live.controller) { e.controller = live.controller; e.action = live.action; }
+  // Re-render just the totals + this row's class so the dashboard stays in sync
+  render();
+}
+
+// ── Live re-test of ALL endpoints, sequentially ──────────────────────────
+async function runAllLive() {
+  const btn = document.getElementById('run-all-btn');
+  btn.disabled = true;
+  const origLabel = btn.textContent;
+  for (let i = 0; i < data.endpoints.length; i++) {
+    btn.textContent = `Testing ${i+1} / ${data.endpoints.length}…`;
+    const e = data.endpoints[i];
+    const rowEl = document.querySelector(`.row[data-idx="${i}"]`);
+    if (rowEl) rowEl.classList.add('testing');
+    try {
+      const r = await fetch('/api/test', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ method: e.method, path: e.path }),
+      });
+      const live = await r.json();
+      const ok2xx = live.status >= 200 && live.status < 300;
+      e.status = live.status;
+      e.size = live.size;
+      e.time = live.time_ms / 1000;
+      e.class = live.error ? 'error' : ok2xx ? 'ok' : live.status === 404 ? 'rewrite' : 'error';
+      e.verdict = live.error ? '✗ FAIL' : ok2xx ? '✓ OK' : `✗ ${live.status}`;
+      if (live.controller) { e.controller = live.controller; e.action = live.action; }
+    } catch {
+      e.status = 0; e.class = 'error'; e.verdict = '✗ FAIL';
+    }
+    if (rowEl) rowEl.classList.remove('testing');
+    // Re-render incrementally so each row updates as we go
+    recomputeTotals();
+    render();
+  }
+  data.timestamp = new Date().toISOString();
+  btn.textContent = origLabel;
+  btn.disabled = false;
+}
+
+function recomputeTotals() {
+  let working = 0, rewrite = 0, errors = 0;
+  for (const e of data.endpoints) {
+    if (e.class === 'ok' || e.class === 'nodata') working++;
+    else if (e.class === 'rewrite') rewrite++;
+    else if (e.class === 'error') errors++;
+  }
+  data.totals = { total: data.endpoints.length, working, needs_rewrite: rewrite, errors };
 }
 function closeModal() { document.getElementById('overlay').classList.remove('show'); }
 function escapeHtml(s) {
@@ -1276,6 +1461,7 @@ document.querySelectorAll('.arch-toggle button').forEach(b => {
   };
 });
 document.getElementById('overlay').onclick = e => { if (e.target.id === 'overlay') closeModal(); };
+document.getElementById('run-all-btn').onclick = runAllLive;
 // Smooth scroll nav
 document.querySelectorAll('.nav a').forEach(a => {
   a.onclick = (e) => {
