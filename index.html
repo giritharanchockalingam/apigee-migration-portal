@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Apigee Migration · Capella Canvas</title>
+<title>Apigee Migration · SEI Canvas</title>
 <style>
   :root {
     --navy: #0F2A47;
@@ -513,7 +513,7 @@
   <div class="section-tag">SOLUTION ARCHITECTURE</div>
   <h2 class="section-title">Today vs. Target</h2>
   <p class="section-lead">
-    Capella's integration estate today runs entirely on MuleSoft. The target state splits
+    SEI's integration estate today runs entirely on MuleSoft. The target state splits
     workloads by their natural fit: Apigee X handles synchronous APIs with cloud-native
     governance; MuleSoft retains the orchestration, batch and eventing where it excels.
   </p>
@@ -523,6 +523,7 @@
     <button data-arch="future">Future State (Apigee X + Mule)</button>
     <button data-arch="decision">Decision Tree</button>
     <button data-arch="translation">Hierarchy Translation</button>
+    <button data-arch="native">Mirror vs Native Apigee</button>
   </div>
 
   <!-- CURRENT STATE DIAGRAM -->
@@ -1139,6 +1140,234 @@
       </div>
     </div>
   </div>
+
+  <!-- MIRROR vs NATIVE APIGEE -->
+  <div class="arch-card hidden" id="arch-native">
+    <div class="arch-header" style="background: linear-gradient(135deg, #1A237E, #4285F4);">
+      <h3>Mirror Approach vs Native Apigee Architecture</h3>
+      <div class="badge">Migration for the 115 · Native for everything next</div>
+    </div>
+    <div class="arch-body">
+      <p style="margin-bottom: 24px; color: var(--gray); font-size: 14px;">
+        The mirror approach optimizes for migration risk — three proxies that match MuleSoft's three projects, URIs preserved, 28 consumer apps unchanged. That is the right call for the in-scope 115 APIs. It is <em>not</em> how Apigee was designed to be built. Below: the two philosophies side by side, what native Apigee would look like for SEI's Canvas surface, and the hybrid that lives in the architecture standards deliverable.
+      </p>
+
+      <svg class="arch-svg" viewBox="0 0 1280 540" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="nvMirror" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#E15A24"/>
+            <stop offset="100%" stop-color="#C0481B"/>
+          </linearGradient>
+          <linearGradient id="nvNative" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#4285F4"/>
+            <stop offset="100%" stop-color="#1A73E8"/>
+          </linearGradient>
+          <linearGradient id="nvShared" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#B8860B"/>
+            <stop offset="100%" stop-color="#8B6508"/>
+          </linearGradient>
+          <linearGradient id="nvProduct" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#2F855A"/>
+            <stop offset="100%" stop-color="#22543D"/>
+          </linearGradient>
+          <marker id="nvArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#6B7280"/>
+          </marker>
+          <filter id="nvShadow" x="-10%" y="-10%" width="120%" height="120%">
+            <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0F2A47" flood-opacity="0.12"/>
+          </filter>
+        </defs>
+
+        <!-- LEFT · MIRROR (what we built) -->
+        <g filter="url(#nvShadow)">
+          <rect x="40" y="30" width="540" height="490" rx="12" fill="#FBE4D7"/>
+          <text x="310" y="62" text-anchor="middle" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="3">MIRROR APPROACH · MIGRATION OPTIMIZATION</text>
+          <text x="310" y="82" text-anchor="middle" font-size="11" fill="#6B7280" font-style="italic">Three proxies that match the three Mule projects</text>
+
+          <rect x="80" y="105" width="460" height="80" rx="8" fill="url(#nvMirror)"/>
+          <text x="310" y="132" text-anchor="middle" font-size="14" font-weight="700" fill="white">system-canvas-api</text>
+          <text x="310" y="152" text-anchor="middle" font-size="11" fill="#FCF3D9">/system-canvas/v3/courses/{id}</text>
+          <text x="310" y="170" text-anchor="middle" font-size="10" fill="#FCF3D9">26 endpoints · policies inlined per proxy</text>
+
+          <rect x="80" y="200" width="460" height="80" rx="8" fill="url(#nvMirror)"/>
+          <text x="310" y="227" text-anchor="middle" font-size="14" font-weight="700" fill="white">experience-canvas-api</text>
+          <text x="310" y="247" text-anchor="middle" font-size="11" fill="#FCF3D9">/canvas/v3/...</text>
+          <text x="310" y="265" text-anchor="middle" font-size="10" fill="#FCF3D9">3 endpoints · OAuth, FERPA copied here too</text>
+
+          <rect x="80" y="295" width="460" height="80" rx="8" fill="url(#nvMirror)"/>
+          <text x="310" y="322" text-anchor="middle" font-size="14" font-weight="700" fill="white">process-canvas-sis-api</text>
+          <text x="310" y="342" text-anchor="middle" font-size="11" fill="#FCF3D9">/process-canvas-sis/v3/...</text>
+          <text x="310" y="360" text-anchor="middle" font-size="10" fill="#FCF3D9">4 endpoints · third copy of policies</text>
+
+          <rect x="80" y="400" width="460" height="100" rx="8" fill="white" stroke="#E15A24" stroke-width="2"/>
+          <text x="100" y="424" font-size="11" font-weight="700" fill="#C0481B">CLIENT IMPACT · ZERO</text>
+          <text x="100" y="448" font-size="11" fill="#1F2937">All 28 consumer apps re-point host. Done.</text>
+          <text x="100" y="468" font-size="11" font-weight="700" fill="#C0481B">TIMELINE · 14 WEEKS</text>
+          <text x="100" y="488" font-size="11" fill="#1F2937">~30% of Apigee features used. Apigee acts as faster Mule.</text>
+        </g>
+
+        <!-- ARROW -->
+        <g transform="translate(600, 270)">
+          <text x="40" y="-30" text-anchor="middle" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="2">CONTRASTS</text>
+          <text x="40" y="-15" text-anchor="middle" font-size="10" fill="#6B7280" font-style="italic">same backend</text>
+          <line x1="0" y1="0" x2="80" y2="0" stroke="#0F2A47" stroke-width="2"/>
+          <line x1="80" y1="0" x2="0" y2="0" stroke="#0F2A47" stroke-width="2"/>
+          <text x="40" y="20" text-anchor="middle" font-size="10" fill="#6B7280" font-style="italic">different shape</text>
+        </g>
+
+        <!-- RIGHT · NATIVE -->
+        <g filter="url(#nvShadow)">
+          <rect x="700" y="30" width="540" height="490" rx="12" fill="#D7E3FC"/>
+          <text x="970" y="62" text-anchor="middle" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="3">NATIVE APIGEE · STANDARD GOING FORWARD</text>
+          <text x="970" y="82" text-anchor="middle" font-size="11" fill="#6B7280" font-style="italic">Domain proxies + Shared Flows + API Products</text>
+
+          <!-- Top row: 4 domain proxies -->
+          <rect x="725" y="105" width="120" height="60" rx="6" fill="url(#nvNative)"/>
+          <text x="785" y="128" text-anchor="middle" font-size="11" font-weight="700" fill="white">courses-api</text>
+          <text x="785" y="148" text-anchor="middle" font-size="9" fill="#E8F0FE">/courses/v1</text>
+
+          <rect x="855" y="105" width="120" height="60" rx="6" fill="url(#nvNative)"/>
+          <text x="915" y="128" text-anchor="middle" font-size="11" font-weight="700" fill="white">enrollments-api</text>
+          <text x="915" y="148" text-anchor="middle" font-size="9" fill="#E8F0FE">/enrollments/v1</text>
+
+          <rect x="985" y="105" width="120" height="60" rx="6" fill="url(#nvNative)"/>
+          <text x="1045" y="128" text-anchor="middle" font-size="11" font-weight="700" fill="white">assignments-api</text>
+          <text x="1045" y="148" text-anchor="middle" font-size="9" fill="#E8F0FE">/assignments/v1</text>
+
+          <rect x="1115" y="105" width="120" height="60" rx="6" fill="url(#nvNative)"/>
+          <text x="1175" y="128" text-anchor="middle" font-size="11" font-weight="700" fill="white">discussions-api</text>
+          <text x="1175" y="148" text-anchor="middle" font-size="9" fill="#E8F0FE">/discussions/v1</text>
+
+          <!-- Second row: 4 more -->
+          <rect x="725" y="172" width="120" height="60" rx="6" fill="url(#nvNative)"/>
+          <text x="785" y="195" text-anchor="middle" font-size="11" font-weight="700" fill="white">users-api</text>
+          <text x="785" y="215" text-anchor="middle" font-size="9" fill="#E8F0FE">/users/v1</text>
+
+          <rect x="855" y="172" width="120" height="60" rx="6" fill="url(#nvNative)"/>
+          <text x="915" y="195" text-anchor="middle" font-size="11" font-weight="700" fill="white">terms-api</text>
+          <text x="915" y="215" text-anchor="middle" font-size="9" fill="#E8F0FE">/terms/v1</text>
+
+          <rect x="985" y="172" width="120" height="60" rx="6" fill="url(#nvNative)"/>
+          <text x="1045" y="195" text-anchor="middle" font-size="11" font-weight="700" fill="white">sis-jobs-api</text>
+          <text x="1045" y="215" text-anchor="middle" font-size="9" fill="#E8F0FE">/sis-jobs/v1</text>
+
+          <rect x="1115" y="172" width="120" height="60" rx="6" fill="url(#nvNative)"/>
+          <text x="1175" y="195" text-anchor="middle" font-size="11" font-weight="700" fill="white">identity-api</text>
+          <text x="1175" y="215" text-anchor="middle" font-size="9" fill="#E8F0FE">/identity/v1</text>
+
+          <!-- Shared Flows row -->
+          <text x="970" y="258" text-anchor="middle" font-size="10" font-weight="700" fill="#6B7280" letter-spacing="1">SHARED FLOWS · ATTACHED TO EVERY PROXY</text>
+
+          <rect x="725" y="270" width="510" height="50" rx="6" fill="url(#nvShared)"/>
+          <text x="980" y="293" text-anchor="middle" font-size="11" font-weight="700" fill="white">sf-oauth-verify · sf-quota · sf-spike-arrest · sf-ferpa-redaction</text>
+          <text x="980" y="310" text-anchor="middle" font-size="10" fill="#FBE9C7">sf-logging · sf-threat-protection · one change applied everywhere</text>
+
+          <!-- API Products row -->
+          <text x="970" y="350" text-anchor="middle" font-size="10" font-weight="700" fill="#6B7280" letter-spacing="1">API PRODUCTS · CONSUMER BUNDLES</text>
+
+          <rect x="725" y="362" width="123" height="44" rx="6" fill="url(#nvProduct)"/>
+          <text x="786" y="382" text-anchor="middle" font-size="10" font-weight="700" fill="white">student-app</text>
+          <text x="786" y="398" text-anchor="middle" font-size="9" fill="#D4E9D2">student scope</text>
+
+          <rect x="858" y="362" width="123" height="44" rx="6" fill="url(#nvProduct)"/>
+          <text x="919" y="382" text-anchor="middle" font-size="10" font-weight="700" fill="white">faculty-app</text>
+          <text x="919" y="398" text-anchor="middle" font-size="9" fill="#D4E9D2">faculty scope</text>
+
+          <rect x="991" y="362" width="123" height="44" rx="6" fill="url(#nvProduct)"/>
+          <text x="1052" y="382" text-anchor="middle" font-size="10" font-weight="700" fill="white">sis-integration</text>
+          <text x="1052" y="398" text-anchor="middle" font-size="9" fill="#D4E9D2">system scope</text>
+
+          <rect x="1124" y="362" width="111" height="44" rx="6" fill="url(#nvProduct)"/>
+          <text x="1179" y="382" text-anchor="middle" font-size="10" font-weight="700" fill="white">analytics</text>
+          <text x="1179" y="398" text-anchor="middle" font-size="9" fill="#D4E9D2">no-PII scope</text>
+
+          <!-- Trade-off card -->
+          <rect x="725" y="425" width="510" height="80" rx="8" fill="white" stroke="#1A73E8" stroke-width="2"/>
+          <text x="745" y="448" font-size="11" font-weight="700" fill="#1A73E8">CLIENT IMPACT · BREAKING</text>
+          <text x="745" y="468" font-size="11" fill="#1F2937">All 28 apps update URLs + OAuth scopes. Coordinated cutover.</text>
+          <text x="745" y="488" font-size="11" font-weight="700" fill="#1A73E8">TIMELINE · 24–30 WEEKS  ·  ~90% Apigee features used</text>
+        </g>
+      </svg>
+
+      <h3 style="margin-top: 32px; margin-bottom: 14px; font-size: 18px; color: var(--navy);">Side-by-side trade-offs</h3>
+
+      <table style="width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 28px;">
+        <thead>
+          <tr style="background: var(--navy); color: white;">
+            <th style="padding: 12px 14px; text-align: left; font-size: 11px; letter-spacing: 1px;">DIMENSION</th>
+            <th style="padding: 12px 14px; text-align: left; font-size: 11px; letter-spacing: 1px;">MIRROR (CURRENT POC)</th>
+            <th style="padding: 12px 14px; text-align: left; font-size: 11px; letter-spacing: 1px;">NATIVE APIGEE (FORWARD STANDARD)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid var(--rule);">
+            <td style="padding: 12px 14px; font-weight: 600; color: var(--navy); vertical-align: top;">Proxy decomposition</td>
+            <td style="padding: 12px 14px; vertical-align: top;">3 proxies named after Mule layers (system/experience/process). Inherits Mule's structure.</td>
+            <td style="padding: 12px 14px; vertical-align: top; background: #F8FAFD;">9 proxies named after business domains (courses/enrollments/assignments/...). Inherits the domain model.</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--rule);">
+            <td style="padding: 12px 14px; font-weight: 600; color: var(--navy); vertical-align: top;">Cross-cutting policies</td>
+            <td style="padding: 12px 14px; vertical-align: top;">OAuth, quota, FERPA inlined per proxy. Three copies. Change costs three edits + three redeploys.</td>
+            <td style="padding: 12px 14px; vertical-align: top; background: #F8FAFD;">Shared Flows referenced by every proxy. One copy. Change costs one edit + one redeploy. Every proxy gets it.</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--rule);">
+            <td style="padding: 12px 14px; font-weight: 600; color: var(--navy); vertical-align: top;">Consumer access</td>
+            <td style="padding: 12px 14px; vertical-align: top;">Tokens + URLs handed out per-consumer. RBAC ad-hoc. No catalog.</td>
+            <td style="padding: 12px 14px; vertical-align: top; background: #F8FAFD;">API Products bundle proxies for consumers (student-app, faculty-app, sis-integration, analytics). Each Product has its own scopes, quotas, FERPA policy. Developer Portal for self-serve.</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--rule);">
+            <td style="padding: 12px 14px; font-weight: 600; color: var(--navy); vertical-align: top;">Where composition lives</td>
+            <td style="padding: 12px 14px; vertical-align: top;">Inside Apigee (process-canvas-sis orchestrates in JS policies). Apigee doing Mule's job.</td>
+            <td style="padding: 12px 14px; vertical-align: top; background: #F8FAFD;">Outside Apigee — composition lives in BFFs or domain microservices. Apigee stays a gateway, not a runtime.</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--rule);">
+            <td style="padding: 12px 14px; font-weight: 600; color: var(--navy); vertical-align: top;">Client contract impact</td>
+            <td style="padding: 12px 14px; vertical-align: top; color: var(--green); font-weight: 600;">Zero. Re-point host. 28 apps unchanged.</td>
+            <td style="padding: 12px 14px; vertical-align: top; background: #F8FAFD; color: var(--amber); font-weight: 600;">Breaking. 28 apps must update URLs + OAuth scopes. Coordinated cutover.</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--rule);">
+            <td style="padding: 12px 14px; font-weight: 600; color: var(--navy); vertical-align: top;">Engagement timeline</td>
+            <td style="padding: 12px 14px; vertical-align: top; color: var(--green); font-weight: 600;">14 weeks for 115 APIs.</td>
+            <td style="padding: 12px 14px; vertical-align: top; background: #F8FAFD; color: var(--amber); font-weight: 600;">24-30 weeks (adds redesign + client coordination + parallel-run).</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--rule);">
+            <td style="padding: 12px 14px; font-weight: 600; color: var(--navy); vertical-align: top;">Apigee features used</td>
+            <td style="padding: 12px 14px; vertical-align: top;">~30%. Proxies, KVMs, basic policies. Apigee acts as a faster MuleSoft.</td>
+            <td style="padding: 12px 14px; vertical-align: top; background: #F8FAFD;">~90%. API Products, Shared Flows, OAuth2 scopes, monetization hooks, Apigee analytics, Developer Portal.</td>
+          </tr>
+          <tr>
+            <td style="padding: 14px; font-weight: 700; color: var(--navy); vertical-align: top; background: #FEF7E0;">Best fit for</td>
+            <td style="padding: 14px; vertical-align: top; font-weight: 600; background: #FEF7E0;">Migrating in-flight APIs where client contracts must be preserved and runway is tight.</td>
+            <td style="padding: 14px; vertical-align: top; background: #FEF7E0; font-weight: 600;">Greenfield APIs, major refactors, monetized API offerings. Built right from day one.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin-top: 24px; margin-bottom: 14px; font-size: 18px; color: var(--navy);">The recommendation: a hybrid the engagement makes explicit</h3>
+
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 28px;">
+        <div style="background: white; border: 1px solid var(--rule); border-radius: 8px; padding: 18px; border-left: 4px solid #E15A24;">
+          <div style="font-size: 11px; font-weight: 700; color: #E15A24; letter-spacing: 2px; margin-bottom: 8px;">FOR THE 115 IN-SCOPE MIGRATION</div>
+          <div style="font-size: 14px; line-height: 1.6; color: var(--body);">
+            Use the mirror approach. Three proxies, preserved URIs, 14 weeks, zero client impact. Already validated by the POC. Every migrated proxy ships with an ADR noting it's a Phase 2 refactor candidate.
+          </div>
+        </div>
+        <div style="background: white; border: 1px solid var(--rule); border-radius: 8px; padding: 18px; border-left: 4px solid #1A73E8;">
+          <div style="font-size: 11px; font-weight: 700; color: #1A73E8; letter-spacing: 2px; margin-bottom: 8px;">FOR EVERYTHING SEI BUILDS NEXT</div>
+          <div style="font-size: 14px; line-height: 1.6; color: var(--body);">
+            Use the native pattern. Domain-aligned proxies, Shared Flows for cross-cutting concerns, API Products for consumer access. This <em>is</em> the architecture standards deliverable in RFP Slide 6.
+          </div>
+        </div>
+      </div>
+
+      <div style="background: var(--navy-dark, #061A30); color: white; padding: 22px 26px; border-radius: 8px; border-left: 4px solid var(--gold);">
+        <div style="font-size: 11px; font-weight: 700; color: var(--gold-lt); letter-spacing: 2px; margin-bottom: 8px;">PROOF POINT · A WORKING NATIVE PROXY LIVES ALONGSIDE THE MIRROR</div>
+        <div style="font-size: 14px; line-height: 1.6;">
+          A fourth proxy — <code style="background: rgba(255,255,255,0.1); padding: 1px 6px; border-radius: 3px;">courses-api-native</code> at <code style="background: rgba(255,255,255,0.1); padding: 1px 6px; border-radius: 3px;">/courses/v1</code> — is deployed in the same eval Apigee org as the three mirror proxies. Same Canvas backend (via the same Tailscale Funnel tunnel), but with Shared Flow references instead of inlined policies and a domain-aligned URI scheme. SEI architects can hit <code style="background: rgba(255,255,255,0.1); padding: 1px 6px; border-radius: 3px;">/system-canvas/v3/courses/1</code> and <code style="background: rgba(255,255,255,0.1); padding: 1px 6px; border-radius: 3px;">/courses/v1/1</code> back-to-back, compare bundle structure and policy attachment, and decide whether the value justifies a Phase 2 refactor pilot. <em>Same data. Two shapes. Real proof of both philosophies.</em>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ============================================================ -->
@@ -1474,6 +1703,7 @@ document.querySelectorAll('.arch-toggle button').forEach(b => {
     document.getElementById('arch-future').classList.toggle('hidden', which !== 'future');
     document.getElementById('arch-decision').classList.toggle('hidden', which !== 'decision');
     document.getElementById('arch-translation').classList.toggle('hidden', which !== 'translation');
+    document.getElementById('arch-native').classList.toggle('hidden', which !== 'native');
   };
 });
 document.getElementById('overlay').onclick = e => { if (e.target.id === 'overlay') closeModal(); };
