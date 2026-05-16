@@ -546,9 +546,7 @@
   <div class="section-tag">SOLUTION ARCHITECTURE</div>
   <h2 class="section-title">Today vs. Target</h2>
   <p class="section-lead">
-    SEI's integration estate today runs entirely on MuleSoft. The target state splits
-    workloads by their natural fit: Apigee X handles synchronous APIs with cloud-native
-    governance; MuleSoft retains the orchestration, batch and eventing where it excels.
+    Today: all on MuleSoft. Target: split by workload fit — Apigee for sync, MuleSoft for orchestration.
   </p>
 
   <div class="arch-toggle">
@@ -1045,7 +1043,7 @@
     </div>
     <div class="arch-body">
       <p style="margin-bottom: 24px; color: var(--gray); font-size: 14px;">
-        MuleSoft enforces the 3-layer API-led architecture at runtime — Experience APIs cannot bypass Process APIs to reach backends. Apigee X has no such concept; every proxy is independent. The migration is not a 1-to-1 port; it is a translation. Below: the side-by-side, the four architectural options I evaluated, and the trade-off the chosen approach makes explicit.
+        Mule enforces layering at runtime. Apigee doesn't — discipline replaces the framework.
       </p>
 
       <svg class="arch-svg" viewBox="0 0 1280 460" xmlns="http://www.w3.org/2000/svg">
@@ -1165,10 +1163,10 @@
         </div>
       </div>
 
-      <div style="background: var(--navy-dark, #061A30); color: white; padding: 22px 26px; border-radius: 8px; border-left: 4px solid var(--gold);">
-        <div style="font-size: 11px; font-weight: 700; color: var(--gold-lt); letter-spacing: 2px; margin-bottom: 8px;">THE TRADE-OFF MADE EXPLICIT</div>
-        <div style="font-size: 14px; line-height: 1.6;">
-          MuleSoft enforces layer separation at <strong>runtime</strong> — the framework physically prevents an Experience API from calling a backend directly. Apigee X cannot enforce this; every proxy can call anything. Replacing runtime enforcement with <strong>governance enforcement</strong> (naming, code review, ADRs, RBAC) is the single largest non-technical deliverable of this engagement. <em>The pattern does not migrate. The discipline does.</em>
+      <div style="background: var(--navy-dark, #061A30); color: white; padding: 18px 24px; border-radius: 8px; border-left: 4px solid var(--gold);">
+        <div style="font-size: 11px; font-weight: 700; color: var(--gold-lt); letter-spacing: 2px; margin-bottom: 6px;">THE TRADE-OFF</div>
+        <div style="font-size: 14px; line-height: 1.5;">
+          What Mule enforces in the runtime, Apigee enforces in code review. <strong>The pattern doesn't migrate — the discipline does.</strong>
         </div>
       </div>
     </div>
