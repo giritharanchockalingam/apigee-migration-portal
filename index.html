@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Apigee Migration · SEI Canvas</title>
+<!-- Auth pre-check: runs before body renders to prevent content flash for
+     unauthenticated visitors. Sets body.gate-locked which CSS uses to hide
+     everything except the demo-access card. -->
+<script>
+  (function() {
+    try {
+      if (sessionStorage.getItem('demo-auth') === 'ok') return;
+    } catch (e) { /* sessionStorage may be unavailable in privacy mode */ }
+    document.documentElement.classList.add('gate-locked');
+  })();
+</script>
 <style>
   :root {
     --navy: #0F2A47;
@@ -504,9 +515,142 @@
     color: var(--gray); grid-column: 1 / -1;
     background: white; border: 1px dashed var(--rule); border-radius: 8px;
   }
+
+  /* ── DEMO AUTH GATE ──────────────────────────────────────────────────── */
+  /* While locked: hide all portal content; show only the gate overlay. */
+  html.gate-locked body > *:not(#auth-gate) { display: none !important; }
+  html:not(.gate-locked) #auth-gate { display: none; }
+
+  #auth-gate {
+    position: fixed; inset: 0;
+    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, var(--navy-mid) 100%);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9999;
+    padding: 24px;
+  }
+  .gate-card {
+    width: min(440px, 92vw);
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+    overflow: hidden;
+  }
+  .gate-card-top {
+    padding: 28px 32px 12px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .gate-brand {
+    font-size: 11px; font-weight: 700;
+    color: var(--gold); letter-spacing: 3px;
+    margin-bottom: 14px;
+  }
+  .gate-title {
+    font-size: 22px; font-weight: 700;
+    color: var(--navy); line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .gate-sub {
+    font-size: 13px; color: var(--gray);
+    line-height: 1.45;
+  }
+  .gate-form {
+    padding: 24px 32px 28px;
+  }
+  .gate-label {
+    display: block;
+    font-size: 11px; font-weight: 700;
+    color: var(--gray); letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .gate-input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--rule);
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: 'SF Mono', Menlo, monospace;
+    color: var(--navy);
+    transition: border-color 0.15s;
+  }
+  .gate-input:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.15);
+  }
+  .gate-error {
+    color: #C53030;
+    font-size: 12px;
+    margin-top: 8px;
+    min-height: 18px;
+  }
+  .gate-button {
+    width: 100%;
+    margin-top: 16px;
+    padding: 12px 20px;
+    background: var(--navy);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px; font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.05s;
+  }
+  .gate-button:hover { background: var(--navy-dark); }
+  .gate-button:active { transform: translateY(1px); }
+  .gate-foot {
+    padding: 12px 32px 18px;
+    border-top: 1px solid var(--rule);
+    background: var(--gray-bg);
+    font-size: 11px; color: var(--gray);
+    text-align: center;
+  }
 </style>
 </head>
 <body>
+
+<!-- ============================================================ -->
+<!-- DEMO ACCESS GATE                                              -->
+<!-- ============================================================ -->
+<div id="auth-gate">
+  <div class="gate-card">
+    <div class="gate-card-top">
+      <div class="gate-brand">APIGEE MIGRATION · DEMO</div>
+      <div class="gate-title">Demo access</div>
+      <div class="gate-sub">Real Apigee X eval org. Real Canvas LMS backend. Enter the demo ID to continue.</div>
+    </div>
+    <form class="gate-form" id="gate-form" autocomplete="off">
+      <label class="gate-label" for="gate-id">Demo ID</label>
+      <input class="gate-input" id="gate-id" type="text" placeholder="sei-2026" autocomplete="off" spellcheck="false" autofocus>
+      <div class="gate-error" id="gate-error"></div>
+      <button class="gate-button" type="submit">Enter portal</button>
+    </form>
+    <div class="gate-foot">
+      No data is captured. Session ends when you close the tab.
+    </div>
+  </div>
+</div>
+<script>
+  // Accepted demo IDs (case-insensitive). Anyone with the ID gets in.
+  // This is a soft gate to keep the live portal off random web traffic,
+  // not real auth — Apigee runtime + Canvas backend remain the actual
+  // security boundary.
+  const DEMO_IDS = ['sei-2026', 'apigee-demo', 'architect'];
+  document.getElementById('gate-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const entered = document.getElementById('gate-id').value.trim().toLowerCase();
+    const err = document.getElementById('gate-error');
+    if (DEMO_IDS.includes(entered)) {
+      try { sessionStorage.setItem('demo-auth', 'ok'); } catch (e) {}
+      document.documentElement.classList.remove('gate-locked');
+      err.textContent = '';
+    } else {
+      err.textContent = entered ? 'That ID doesn\'t match. Try again or ask the demo owner.' : 'Enter a demo ID to continue.';
+      document.getElementById('gate-id').focus();
+      document.getElementById('gate-id').select();
+    }
+  });
+</script>
 
 <!-- ============================================================ -->
 <!-- HERO                                                          -->
@@ -514,7 +658,7 @@
 <div class="hero">
   <div class="hero-content">
     <div class="hero-tag">SEI · MULESOFT → APIGEE X</div>
-    <h1>The migration, <span class="gold">proven</span> — on your real Canvas data.</h1>
+    <h1>MuleSoft → <span class="gold">Apigee X</span> migration, proven on real Canvas data.</h1>
     <p class="lead">
       Two architectures. Same backend. Both live.
       <strong>Click any row below</strong> to re-test against real Canvas right now.
@@ -821,9 +965,9 @@
       </svg>
 
       <div class="arch-callouts">
-        <div class="callout"><div class="h">Why move the sync APIs</div><div class="b">Your team stops running middleware servers, patching runtimes, and sizing CloudHub workers for the consumer-facing traffic. The time saved goes back to building features.</div></div>
-        <div class="callout"><div class="h">Why keep MuleSoft for the rest</div><div class="b">Your orchestration and batch flows already work. Forcing them onto Apigee just rewrites code that wasn't broken — and Apigee isn't designed for that workload anyway. Don't pay twice.</div></div>
-        <div class="callout"><div class="h">What "Phase 2" actually means</div><div class="b">After the first wave proves out, we look at the 170 async APIs together and decide what (if anything) to move later. No commitment up front; you keep the option.</div></div>
+        <div class="callout"><div class="h">Why move the sync APIs</div><div class="b">The integration team stops running middleware servers, patching runtimes, and sizing CloudHub workers for consumer-facing traffic. Time saved goes back to building features.</div></div>
+        <div class="callout"><div class="h">Why keep MuleSoft for the rest</div><div class="b">Orchestration and batch flows already work. Forcing them onto Apigee just rewrites code that wasn't broken — and Apigee isn't designed for that workload anyway. Don't pay twice.</div></div>
+        <div class="callout"><div class="h">What "Phase 2" actually means</div><div class="b">After the first wave proves out, the 170 async APIs get a second look. Decide then what (if anything) to move later. No commitment up front; the option stays open.</div></div>
       </div>
     </div>
   </div>
@@ -1020,16 +1164,16 @@
 
       <div class="arch-callouts">
         <div class="callout">
-          <div class="h">What you'll find when you run it</div>
-          <div class="b">Roughly three out of four of your APIs fit Apigee. Most of the rest stay on MuleSoft. A handful are genuinely ambiguous and worth waiting on. That's the realistic split — not "100% Apigee" because nobody's estate looks like that.</div>
+          <div class="h">What the tree typically returns</div>
+          <div class="b">Roughly three out of four APIs fit Apigee. Most of the rest stay on MuleSoft. A handful are genuinely ambiguous and worth waiting on. That's the realistic split — not "100% Apigee" because no estate looks like that.</div>
         </div>
         <div class="callout">
-          <div class="h">You run this, not me</div>
-          <div class="b">Once we hand this over, your engineers apply the tree on every new API they consider. You won't need to call me back to ask "which platform?" — and that's intentional. The decision stays yours.</div>
+          <div class="h">The team runs it, not the architect</div>
+          <div class="b">After handover, the integration team applies the tree on every new API. No need to call back to ask "which platform?" — and that's intentional. The decision stays internal.</div>
         </div>
         <div class="callout">
           <div class="h">For when audit asks</div>
-          <div class="b">Every placement decision gets recorded against the proxy in version control with the rule number that justified it. When your compliance or audit team asks "why is this here," the answer is one git log away.</div>
+          <div class="b">Every placement decision gets recorded against the proxy in version control with the rule number that justified it. When compliance or audit asks "why is this here," the answer is one git log away.</div>
         </div>
       </div>
     </div>
@@ -1419,7 +1563,7 @@
 <!-- ============================================================ -->
 <section id="approach">
   <div class="section-tag">ENGAGEMENT</div>
-  <h2 class="section-title">14 weeks · one architect · your engineers build.</h2>
+  <h2 class="section-title">14 weeks · one architect · client engineers build.</h2>
   <p class="section-lead">
     Advisory only. I set the patterns; SEI engineers ship the code.
   </p>
@@ -1435,7 +1579,7 @@
     </div>
     <div class="callout">
       <div class="h">Weeks 7–10</div>
-      <div class="b"><strong>Your team owns it.</strong> Bulk migration. I shift from pair-programming to code review. Mid-phase: re-test the call graph against what shipped.</div>
+      <div class="b"><strong>The team owns it.</strong> Bulk migration. The architect shifts from pair-programming to code review. Mid-phase: re-test the call graph against what shipped.</div>
     </div>
     <div class="callout">
       <div class="h">Weeks 11–14</div>
