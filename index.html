@@ -420,17 +420,18 @@
     <div class="hero-tag">PROPOSAL DEMO · SEI</div>
     <h1>MuleSoft → <span class="gold">Apigee X</span> Integration Migration</h1>
     <p class="lead">
-      You don't need to migrate everything. Your consumer-facing synchronous APIs move
-      to Apigee X on GCP. Your orchestration, batch and event flows stay on MuleSoft
-      where they already work well. Below: what today looks like, what target looks
-      like, and a live test of 33 of your actual endpoints already running against
-      your Canvas data.
+      SEI runs 285 integration APIs across five architectural patterns, serving 28
+      applications and 31 million calls a year. Of those, 115 are strong Apigee
+      candidates by SEI's own selection — consumer-facing, minimal transformation.
+      The other 170 stay on MuleSoft, where they belong. Below: the today vs target
+      architecture, the decision tree your engineers will own, and a live POC against
+      33 representative endpoints proving the approach works on your real Canvas data.
     </p>
     <div class="hero-metrics">
-      <div class="hero-metric"><div class="v">285</div><div class="l">Total APIs in estate</div></div>
-      <div class="hero-metric"><div class="v">115</div><div class="l">Migrating to Apigee X</div></div>
-      <div class="hero-metric"><div class="v">170</div><div class="l">Staying on MuleSoft</div></div>
-      <div class="hero-metric"><div class="v">14</div><div class="l">Weeks · Wave 1</div></div>
+      <div class="hero-metric"><div class="v">285</div><div class="l">APIs in your estate</div></div>
+      <div class="hero-metric"><div class="v">115</div><div class="l">In migration scope</div></div>
+      <div class="hero-metric"><div class="v">31M</div><div class="l">Calls/year carried</div></div>
+      <div class="hero-metric"><div class="v">28</div><div class="l">Apps depending on this</div></div>
     </div>
   </div>
 </div>
@@ -1085,12 +1086,15 @@
 <!-- DASHBOARD                                                     -->
 <!-- ============================================================ -->
 <section id="dashboard">
-  <div class="section-tag">LIVE END-TO-END TEST</div>
-  <h2 class="section-title">33 endpoints · Real Canvas data</h2>
+  <div class="section-tag">LIVE END-TO-END TEST · POC</div>
+  <h2 class="section-title">33 endpoints proven · the falsifiability check on the approach</h2>
   <p class="section-lead">
-    Every endpoint below is deployed on the actual Apigee X eval org running on GCP, proxying
-    to a real Canvas LMS instance. Click any row to see the full Apigee URL, response timing,
-    Canvas controller hit, and the raw JSON returned.
+    The 33 endpoints below are a vertical slice through the 115-API migration scope —
+    three MuleSoft projects (system-canvas-api, experience-canvas-api, process-canvas-sis-api)
+    chosen because together they exercise every pattern that will appear in the full migration.
+    Each is deployed on a live Apigee X eval org on GCP, proxying to a real Canvas LMS instance.
+    Click any row to see the Apigee URL, response timing, Canvas controller hit, and the raw
+    JSON. <em>This is the proof, not the migration itself.</em>
   </p>
 
   <div class="stats" id="stats"></div>
