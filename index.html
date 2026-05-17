@@ -801,26 +801,14 @@
         <!-- Consumer entry arrow -->
         <path d="M240,330 C260,330 270,330 285,330" stroke="white" stroke-width="3" fill="none" marker-end="url(#arrow1w)"/>
 
-        <!-- ============ EXPERIENCE LAYER (top, widest band) ============ -->
+        <!-- ============ EXPERIENCE LAYER (top, widest band) ============
+             Band widths convey fan-in (Experience widest → System narrowest).
+             No per-layer API counts are shown because the RFP did not break the
+             285 estate down by Mule layer. Only the total 285 is RFP-attested. -->
         <g>
           <rect x="320" y="200" width="640" height="76" rx="10" fill="white" opacity="0.96"/>
-          <text x="340" y="226" font-size="14" font-weight="700" fill="#0F2A47">Experience APIs</text>
-          <text x="340" y="244" font-size="11" fill="#6B7280">channel-shaped responses · mobile, portal, partner</text>
-          <!-- count badge -->
-          <rect x="860" y="212" width="84" height="50" rx="8" fill="#0F2A47"/>
-          <text x="902" y="234" text-anchor="middle" font-size="20" font-weight="700" fill="white">~140</text>
-          <text x="902" y="252" text-anchor="middle" font-size="10" fill="#F0D78A" letter-spacing="1">EXPERIENCE</text>
-          <!-- mini cluster glyph -->
-          <g fill="#E15A24" opacity="0.6">
-            <rect x="540" y="237" width="10" height="10" rx="1"/>
-            <rect x="555" y="237" width="10" height="10" rx="1"/>
-            <rect x="570" y="237" width="10" height="10" rx="1"/>
-            <rect x="585" y="237" width="10" height="10" rx="1"/>
-            <rect x="600" y="237" width="10" height="10" rx="1"/>
-            <rect x="615" y="237" width="10" height="10" rx="1"/>
-            <rect x="630" y="237" width="10" height="10" rx="1"/>
-            <rect x="645" y="237" width="10" height="10" rx="1"/>
-          </g>
+          <text x="640" y="231" text-anchor="middle" font-size="16" font-weight="700" fill="#0F2A47">Experience APIs</text>
+          <text x="640" y="252" text-anchor="middle" font-size="11" fill="#6B7280">channel-shaped responses · entered by consumers only</text>
         </g>
 
         <!-- Fan-in arrow Experience -> Process -->
@@ -830,19 +818,8 @@
         <!-- ============ PROCESS LAYER (middle, narrower) ============ -->
         <g>
           <rect x="380" y="324" width="520" height="76" rx="10" fill="white" opacity="0.96"/>
-          <text x="400" y="350" font-size="14" font-weight="700" fill="#0F2A47">Process APIs</text>
-          <text x="400" y="368" font-size="11" fill="#6B7280">orchestration · multi-source composition</text>
-          <rect x="800" y="336" width="84" height="50" rx="8" fill="#0F2A47"/>
-          <text x="842" y="358" text-anchor="middle" font-size="20" font-weight="700" fill="white">~95</text>
-          <text x="842" y="376" text-anchor="middle" font-size="10" fill="#F0D78A" letter-spacing="1">PROCESS</text>
-          <g fill="#E15A24" opacity="0.6">
-            <rect x="560" y="361" width="10" height="10" rx="1"/>
-            <rect x="575" y="361" width="10" height="10" rx="1"/>
-            <rect x="590" y="361" width="10" height="10" rx="1"/>
-            <rect x="605" y="361" width="10" height="10" rx="1"/>
-            <rect x="620" y="361" width="10" height="10" rx="1"/>
-            <rect x="635" y="361" width="10" height="10" rx="1"/>
-          </g>
+          <text x="640" y="355" text-anchor="middle" font-size="16" font-weight="700" fill="#0F2A47">Process APIs</text>
+          <text x="640" y="376" text-anchor="middle" font-size="11" fill="#6B7280">orchestration · multi-source composition</text>
         </g>
 
         <!-- Fan-in arrow Process -> System -->
@@ -852,17 +829,8 @@
         <!-- ============ SYSTEM LAYER (bottom, narrowest) ============ -->
         <g>
           <rect x="440" y="448" width="400" height="76" rx="10" fill="white" opacity="0.96"/>
-          <text x="460" y="474" font-size="14" font-weight="700" fill="#0F2A47">System APIs</text>
-          <text x="460" y="492" font-size="11" fill="#6B7280">sole backend integration point</text>
-          <rect x="740" y="460" width="84" height="50" rx="8" fill="#0F2A47"/>
-          <text x="782" y="482" text-anchor="middle" font-size="20" font-weight="700" fill="white">~50</text>
-          <text x="782" y="500" text-anchor="middle" font-size="10" fill="#F0D78A" letter-spacing="1">SYSTEM</text>
-          <g fill="#E15A24" opacity="0.6">
-            <rect x="595" y="485" width="10" height="10" rx="1"/>
-            <rect x="610" y="485" width="10" height="10" rx="1"/>
-            <rect x="625" y="485" width="10" height="10" rx="1"/>
-            <rect x="640" y="485" width="10" height="10" rx="1"/>
-          </g>
+          <text x="640" y="479" text-anchor="middle" font-size="16" font-weight="700" fill="#0F2A47">System APIs</text>
+          <text x="640" y="500" text-anchor="middle" font-size="11" fill="#6B7280">sole backend integration point</text>
         </g>
 
         <!-- =========================================================
@@ -987,58 +955,49 @@
         <line x1="240" y1="240" x2="1060" y2="240" stroke="#E5E7EB" stroke-dasharray="3,4" opacity="0.6"/>
         <line x1="240" y1="360" x2="1060" y2="360" stroke="#E5E7EB" stroke-dasharray="3,4" opacity="0.6"/>
 
-        <!-- ============ EXPERIENCE row ============ -->
+        <!-- ============ EXPERIENCE row ============
+             No per-cell counts are shown. The RFP gave only the totals
+             (115 to Apigee, 170 retained on Mule) and pattern-based counts.
+             Which Mule layers contributed how many APIs to each platform is
+             NOT specified by the RFP, so the cards intentionally show layer
+             + platform without a fabricated breakdown. -->
         <g filter="url(#shadow2)">
           <rect x="260" y="130" width="270" height="100" rx="10" fill="url(#muleGrad2)"/>
         </g>
-        <text x="395" y="170" text-anchor="middle" font-size="32" font-weight="700" fill="white">93</text>
-        <text x="395" y="194" text-anchor="middle" font-size="12" fill="#FBE4D7">Experience APIs on Mule</text>
-        <g fill="white" opacity="0.55">
-          <rect x="320" y="206" width="9" height="9" rx="1"/><rect x="333" y="206" width="9" height="9" rx="1"/><rect x="346" y="206" width="9" height="9" rx="1"/><rect x="359" y="206" width="9" height="9" rx="1"/><rect x="372" y="206" width="9" height="9" rx="1"/><rect x="385" y="206" width="9" height="9" rx="1"/><rect x="398" y="206" width="9" height="9" rx="1"/><rect x="411" y="206" width="9" height="9" rx="1"/><rect x="424" y="206" width="9" height="9" rx="1"/><rect x="437" y="206" width="9" height="9" rx="1"/><rect x="450" y="206" width="9" height="9" rx="1"/><rect x="463" y="206" width="9" height="9" rx="1"/>
-        </g>
+        <text x="395" y="174" text-anchor="middle" font-size="18" font-weight="700" fill="white">Experience APIs</text>
+        <text x="395" y="200" text-anchor="middle" font-size="12" fill="#FBE4D7" letter-spacing="1">RETAINED ON MULESOFT</text>
 
         <g filter="url(#shadow2)">
           <rect x="720" y="130" width="270" height="100" rx="10" fill="url(#apigeeGrad)"/>
         </g>
-        <text x="855" y="170" text-anchor="middle" font-size="32" font-weight="700" fill="white">47</text>
-        <text x="855" y="194" text-anchor="middle" font-size="12" fill="#D7E3FC">Experience APIs on Apigee</text>
-        <g fill="white" opacity="0.55">
-          <rect x="780" y="206" width="9" height="9" rx="1"/><rect x="793" y="206" width="9" height="9" rx="1"/><rect x="806" y="206" width="9" height="9" rx="1"/><rect x="819" y="206" width="9" height="9" rx="1"/><rect x="832" y="206" width="9" height="9" rx="1"/><rect x="845" y="206" width="9" height="9" rx="1"/><rect x="858" y="206" width="9" height="9" rx="1"/><rect x="871" y="206" width="9" height="9" rx="1"/><rect x="884" y="206" width="9" height="9" rx="1"/><rect x="897" y="206" width="9" height="9" rx="1"/>
-        </g>
+        <text x="855" y="174" text-anchor="middle" font-size="18" font-weight="700" fill="white">Experience APIs</text>
+        <text x="855" y="200" text-anchor="middle" font-size="12" fill="#D7E3FC" letter-spacing="1">MIGRATED TO APIGEE X</text>
 
         <!-- ============ PROCESS row ============ -->
         <g filter="url(#shadow2)">
           <rect x="260" y="250" width="270" height="100" rx="10" fill="url(#muleGrad2)"/>
         </g>
-        <text x="395" y="290" text-anchor="middle" font-size="32" font-weight="700" fill="white">50</text>
-        <text x="395" y="314" text-anchor="middle" font-size="12" fill="#FBE4D7">Process APIs on Mule</text>
-        <g fill="white" opacity="0.55">
-          <rect x="335" y="326" width="9" height="9" rx="1"/><rect x="348" y="326" width="9" height="9" rx="1"/><rect x="361" y="326" width="9" height="9" rx="1"/><rect x="374" y="326" width="9" height="9" rx="1"/><rect x="387" y="326" width="9" height="9" rx="1"/><rect x="400" y="326" width="9" height="9" rx="1"/><rect x="413" y="326" width="9" height="9" rx="1"/><rect x="426" y="326" width="9" height="9" rx="1"/><rect x="439" y="326" width="9" height="9" rx="1"/><rect x="452" y="326" width="9" height="9" rx="1"/>
-        </g>
+        <text x="395" y="294" text-anchor="middle" font-size="18" font-weight="700" fill="white">Process APIs</text>
+        <text x="395" y="320" text-anchor="middle" font-size="12" fill="#FBE4D7" letter-spacing="1">RETAINED ON MULESOFT</text>
 
         <g filter="url(#shadow2)">
           <rect x="720" y="250" width="270" height="100" rx="10" fill="url(#apigeeGrad)"/>
         </g>
-        <text x="855" y="290" text-anchor="middle" font-size="32" font-weight="700" fill="white">25</text>
-        <text x="855" y="314" text-anchor="middle" font-size="12" fill="#D7E3FC">Process APIs on Apigee</text>
-        <g fill="white" opacity="0.55">
-          <rect x="810" y="326" width="9" height="9" rx="1"/><rect x="823" y="326" width="9" height="9" rx="1"/><rect x="836" y="326" width="9" height="9" rx="1"/><rect x="849" y="326" width="9" height="9" rx="1"/><rect x="862" y="326" width="9" height="9" rx="1"/><rect x="875" y="326" width="9" height="9" rx="1"/><rect x="888" y="326" width="9" height="9" rx="1"/>
-        </g>
+        <text x="855" y="294" text-anchor="middle" font-size="18" font-weight="700" fill="white">Process APIs</text>
+        <text x="855" y="320" text-anchor="middle" font-size="12" fill="#D7E3FC" letter-spacing="1">MIGRATED TO APIGEE X</text>
 
         <!-- ============ SYSTEM row ============ -->
         <g filter="url(#shadow2)">
           <rect x="260" y="370" width="270" height="100" rx="10" fill="url(#muleGrad2)"/>
         </g>
-        <text x="395" y="410" text-anchor="middle" font-size="32" font-weight="700" fill="white">27</text>
-        <text x="395" y="434" text-anchor="middle" font-size="12" fill="#FBE4D7">System APIs on Mule</text>
-        <text x="395" y="452" text-anchor="middle" font-size="10" fill="#FBE4D7" font-style="italic">SOAP · batch · legacy</text>
+        <text x="395" y="414" text-anchor="middle" font-size="18" font-weight="700" fill="white">System APIs</text>
+        <text x="395" y="440" text-anchor="middle" font-size="12" fill="#FBE4D7" letter-spacing="1">RETAINED ON MULESOFT</text>
 
         <g filter="url(#shadow2)">
           <rect x="720" y="370" width="270" height="100" rx="10" fill="url(#apigeeGrad)"/>
         </g>
-        <text x="855" y="410" text-anchor="middle" font-size="32" font-weight="700" fill="white">43</text>
-        <text x="855" y="434" text-anchor="middle" font-size="12" fill="#D7E3FC">System APIs on Apigee</text>
-        <text x="855" y="452" text-anchor="middle" font-size="10" fill="#D7E3FC" font-style="italic">REST · cloud-native</text>
+        <text x="855" y="414" text-anchor="middle" font-size="18" font-weight="700" fill="white">System APIs</text>
+        <text x="855" y="440" text-anchor="middle" font-size="12" fill="#D7E3FC" letter-spacing="1">MIGRATED TO APIGEE X</text>
 
         <!-- Consumer entry arrows -->
         <path d="M200,290 C220,290 240,180 258,180" stroke="#6B7280" stroke-width="2.5" fill="none" marker-end="url(#arrow2)"/>
