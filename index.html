@@ -1361,7 +1361,7 @@
         Mule enforces layering at runtime. Apigee doesn't — discipline replaces the framework.
       </p>
 
-      <svg class="arch-svg" viewBox="0 0 1280 460" xmlns="http://www.w3.org/2000/svg">
+      <svg class="arch-svg" viewBox="0 0 1280 620" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="htMule" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#E15A24"/>
@@ -1371,77 +1371,163 @@
             <stop offset="0%" stop-color="#4285F4"/>
             <stop offset="100%" stop-color="#1A73E8"/>
           </linearGradient>
+          <linearGradient id="htBackend" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#4B5563"/>
+            <stop offset="100%" stop-color="#1F2937"/>
+          </linearGradient>
           <marker id="htArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
             <path d="M0,0 L10,5 L0,10 z" fill="#6B7280"/>
+          </marker>
+          <marker id="htArrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1A73E8"/>
+          </marker>
+          <marker id="htArrowGold" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#B8860B"/>
           </marker>
           <filter id="htShadow" x="-10%" y="-10%" width="120%" height="120%">
             <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0F2A47" flood-opacity="0.12"/>
           </filter>
+          <pattern id="htHatch" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="6" stroke="#C53030" stroke-width="2"/>
+          </pattern>
         </defs>
 
-        <!-- LEFT: MuleSoft 3-layer hierarchy -->
+        <!-- ===================== LEFT · MULESOFT ===================== -->
         <g filter="url(#htShadow)">
-          <rect x="60" y="40" width="500" height="380" rx="12" fill="#FBE4D7"/>
-          <text x="310" y="72" text-anchor="middle" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="3">MULESOFT · RUNTIME-ENFORCED HIERARCHY</text>
+          <rect x="40" y="30" width="560" height="560" rx="12" fill="#FBE4D7"/>
+          <text x="320" y="60" text-anchor="middle" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="3">MULESOFT · RUNTIME-ENFORCED HIERARCHY</text>
+          <text x="320" y="78" text-anchor="middle" font-size="10" fill="#6B7280" font-style="italic">The Mule runtime is the wall. Layers cannot be skipped.</text>
 
-          <rect x="100" y="100" width="420" height="70" rx="8" fill="url(#htMule)"/>
-          <text x="310" y="128" text-anchor="middle" font-size="15" font-weight="700" fill="white">Experience API</text>
-          <text x="310" y="150" text-anchor="middle" font-size="11" fill="#FCF3D9">Channel-specific composition</text>
+          <!-- Runtime framework boundary box -->
+          <rect x="70" y="100" width="500" height="380" rx="10" fill="none" stroke="#C0481B" stroke-width="2" stroke-dasharray="2,0"/>
+          <rect x="200" y="91" width="240" height="18" rx="3" fill="#C0481B"/>
+          <text x="320" y="104" text-anchor="middle" font-size="10" font-weight="700" fill="white" letter-spacing="2">MULE RUNTIME FRAMEWORK</text>
 
-          <line x1="310" y1="172" x2="310" y2="195" stroke="#6B7280" stroke-width="2" marker-end="url(#htArrow)"/>
-          <text x="325" y="187" font-size="10" fill="#6B7280" font-style="italic">must call</text>
+          <!-- Experience layer -->
+          <rect x="105" y="125" width="430" height="64" rx="8" fill="url(#htMule)"/>
+          <text x="320" y="150" text-anchor="middle" font-size="14" font-weight="700" fill="white">Experience API</text>
+          <text x="320" y="170" text-anchor="middle" font-size="10" fill="#FCF3D9">Channel-specific composition · mobile, web, partner</text>
 
-          <rect x="100" y="200" width="420" height="70" rx="8" fill="url(#htMule)"/>
-          <text x="310" y="228" text-anchor="middle" font-size="15" font-weight="700" fill="white">Process API</text>
-          <text x="310" y="250" text-anchor="middle" font-size="11" fill="#FCF3D9">Orchestration · composition</text>
+          <line x1="320" y1="191" x2="320" y2="220" stroke="#1F2937" stroke-width="2.5" marker-end="url(#htArrow)"/>
+          <text x="335" y="210" font-size="10" font-weight="600" fill="#1F2937" font-style="italic">enforced call</text>
 
-          <line x1="310" y1="272" x2="310" y2="295" stroke="#6B7280" stroke-width="2" marker-end="url(#htArrow)"/>
-          <text x="325" y="287" font-size="10" fill="#6B7280" font-style="italic">must call</text>
+          <!-- Process layer -->
+          <rect x="105" y="225" width="430" height="64" rx="8" fill="url(#htMule)"/>
+          <text x="320" y="250" text-anchor="middle" font-size="14" font-weight="700" fill="white">Process API</text>
+          <text x="320" y="270" text-anchor="middle" font-size="10" fill="#FCF3D9">Orchestration · multi-source composition</text>
 
-          <rect x="100" y="300" width="420" height="70" rx="8" fill="url(#htMule)"/>
-          <text x="310" y="328" text-anchor="middle" font-size="15" font-weight="700" fill="white">System API</text>
-          <text x="310" y="350" text-anchor="middle" font-size="11" fill="#FCF3D9">Direct backend integration</text>
+          <line x1="320" y1="291" x2="320" y2="320" stroke="#1F2937" stroke-width="2.5" marker-end="url(#htArrow)"/>
+          <text x="335" y="310" font-size="10" font-weight="600" fill="#1F2937" font-style="italic">enforced call</text>
 
-          <text x="310" y="395" text-anchor="middle" font-size="11" font-weight="600" fill="#C53030" font-style="italic">Framework forbids skipping layers</text>
+          <!-- System layer -->
+          <rect x="105" y="325" width="430" height="64" rx="8" fill="url(#htMule)"/>
+          <text x="320" y="350" text-anchor="middle" font-size="14" font-weight="700" fill="white">System API</text>
+          <text x="320" y="370" text-anchor="middle" font-size="10" fill="#FCF3D9">Sole backend integration point</text>
+
+          <line x1="320" y1="391" x2="320" y2="420" stroke="#1F2937" stroke-width="2.5" marker-end="url(#htArrow)"/>
+
+          <!-- Backends -->
+          <rect x="155" y="425" width="330" height="44" rx="6" fill="url(#htBackend)"/>
+          <text x="320" y="450" text-anchor="middle" font-size="11" font-weight="700" fill="white">Backends · Canvas · Workday · SIS · SAP</text>
+
+          <!-- Blocked direct path: Experience → Backend -->
+          <path d="M 95 157 Q 38 290 95 447" fill="none" stroke="#C53030" stroke-width="2.5" stroke-dasharray="5,4"/>
+          <g transform="translate(40, 295)">
+            <circle cx="0" cy="0" r="14" fill="#C53030"/>
+            <line x1="-7" y1="-7" x2="7" y2="7" stroke="white" stroke-width="3"/>
+            <line x1="7" y1="-7" x2="-7" y2="7" stroke="white" stroke-width="3"/>
+          </g>
+          <text x="40" y="328" text-anchor="middle" font-size="9" font-weight="700" fill="#C53030">BLOCKED</text>
+          <text x="40" y="340" text-anchor="middle" font-size="9" font-weight="700" fill="#C53030">AT RUNTIME</text>
+
+          <!-- Caption -->
+          <rect x="70" y="495" width="500" height="80" rx="6" fill="white" stroke="#C0481B" stroke-width="1.5"/>
+          <text x="86" y="518" font-size="11" font-weight="700" fill="#C0481B">RUNTIME BEHAVIOUR</text>
+          <text x="86" y="538" font-size="10.5" fill="#1F2937">• Experience cannot import or call a System connector — the build fails.</text>
+          <text x="86" y="554" font-size="10.5" fill="#1F2937">• Anypoint Exchange + Anypoint MQ topology make layer-skipping visible.</text>
+          <text x="86" y="570" font-size="10.5" fill="#1F2937">• The framework is the auditor. Discipline is in the platform, not the team.</text>
         </g>
 
-        <!-- ARROW between -->
-        <g transform="translate(580, 220)">
-          <text x="60" y="-20" text-anchor="middle" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="2">TRANSLATES TO</text>
-          <line x1="0" y1="0" x2="120" y2="0" stroke="#0F2A47" stroke-width="2" marker-end="url(#htArrow)"/>
-          <text x="60" y="20" text-anchor="middle" font-size="10" fill="#0F2A47" font-style="italic">via governance</text>
+        <!-- ===================== CENTRE · TRANSLATION ===================== -->
+        <g transform="translate(606, 290)">
+          <text x="34" y="-46" text-anchor="middle" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="3">TRANSLATES TO</text>
+          <text x="34" y="-28" text-anchor="middle" font-size="10" fill="#6B7280" font-style="italic">Runtime barrier</text>
+          <text x="34" y="-15" text-anchor="middle" font-size="10" fill="#6B7280" font-style="italic">→ governance overlay</text>
+          <line x1="0" y1="0" x2="68" y2="0" stroke="#0F2A47" stroke-width="2.5" marker-end="url(#htArrow)"/>
         </g>
 
-        <!-- RIGHT: Apigee flat + governance -->
+        <!-- ===================== RIGHT · APIGEE ===================== -->
         <g filter="url(#htShadow)">
-          <rect x="720" y="40" width="500" height="380" rx="12" fill="#D7E3FC"/>
-          <text x="970" y="72" text-anchor="middle" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="3">APIGEE X · GOVERNANCE-ENFORCED SEPARATION</text>
+          <rect x="680" y="30" width="560" height="560" rx="12" fill="#D7E3FC"/>
+          <text x="960" y="60" text-anchor="middle" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="3">APIGEE X · FLAT RUNTIME + GOVERNANCE OVERLAY</text>
+          <text x="960" y="78" text-anchor="middle" font-size="10" fill="#6B7280" font-style="italic">No framework wall. Every proxy is equal. Discipline is on the team.</text>
 
-          <rect x="760" y="100" width="135" height="80" rx="8" fill="url(#htApigee)"/>
-          <text x="827" y="128" text-anchor="middle" font-size="13" font-weight="700" fill="white">experience-*</text>
-          <text x="827" y="150" text-anchor="middle" font-size="10" fill="#E8F0FE">proxy</text>
-          <text x="827" y="170" text-anchor="middle" font-size="10" fill="#E8F0FE">(naming only)</text>
+          <!-- Apigee runtime boundary - dashed thin to indicate "no enforced layers" -->
+          <rect x="710" y="100" width="500" height="240" rx="10" fill="white" stroke="#1A73E8" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.85"/>
+          <rect x="850" y="91" width="220" height="18" rx="3" fill="#1A73E8"/>
+          <text x="960" y="104" text-anchor="middle" font-size="10" font-weight="700" fill="white" letter-spacing="2">APIGEE X RUNTIME</text>
 
-          <rect x="912" y="100" width="135" height="80" rx="8" fill="url(#htApigee)"/>
-          <text x="980" y="128" text-anchor="middle" font-size="13" font-weight="700" fill="white">process-*</text>
-          <text x="980" y="150" text-anchor="middle" font-size="10" fill="#E8F0FE">proxy</text>
-          <text x="980" y="170" text-anchor="middle" font-size="10" fill="#E8F0FE">(naming only)</text>
+          <!-- Three proxies, flat/sibling -->
+          <rect x="730" y="130" width="150" height="64" rx="8" fill="url(#htApigee)"/>
+          <text x="805" y="155" text-anchor="middle" font-size="12" font-weight="700" fill="white">experience-*</text>
+          <text x="805" y="174" text-anchor="middle" font-size="10" fill="#E8F0FE">API Proxy</text>
+          <text x="805" y="188" text-anchor="middle" font-size="9" fill="#E8F0FE">naming convention only</text>
 
-          <rect x="1063" y="100" width="135" height="80" rx="8" fill="url(#htApigee)"/>
-          <text x="1130" y="128" text-anchor="middle" font-size="13" font-weight="700" fill="white">system-*</text>
-          <text x="1130" y="150" text-anchor="middle" font-size="10" fill="#E8F0FE">proxy</text>
-          <text x="1130" y="170" text-anchor="middle" font-size="10" fill="#E8F0FE">(naming only)</text>
+          <rect x="887" y="130" width="150" height="64" rx="8" fill="url(#htApigee)"/>
+          <text x="962" y="155" text-anchor="middle" font-size="12" font-weight="700" fill="white">process-*</text>
+          <text x="962" y="174" text-anchor="middle" font-size="10" fill="#E8F0FE">API Proxy</text>
+          <text x="962" y="188" text-anchor="middle" font-size="9" fill="#E8F0FE">naming convention only</text>
 
-          <text x="970" y="210" text-anchor="middle" font-size="11" font-style="italic" fill="#0F2A47">Apigee allows any proxy to call any backend</text>
+          <rect x="1044" y="130" width="150" height="64" rx="8" fill="url(#htApigee)"/>
+          <text x="1119" y="155" text-anchor="middle" font-size="12" font-weight="700" fill="white">system-*</text>
+          <text x="1119" y="174" text-anchor="middle" font-size="10" fill="#E8F0FE">API Proxy</text>
+          <text x="1119" y="188" text-anchor="middle" font-size="9" fill="#E8F0FE">naming convention only</text>
 
-          <!-- Governance enforcement card -->
-          <rect x="760" y="232" width="440" height="160" rx="8" fill="white" stroke="#1A73E8" stroke-width="2"/>
-          <text x="780" y="258" font-size="12" font-weight="700" fill="#0F2A47">GOVERNANCE ENFORCES WHAT FRAMEWORK DID</text>
-          <text x="780" y="284" font-size="11" fill="#1F2937">✓ Naming conventions (system-* · process-* · experience-*)</text>
-          <text x="780" y="306" font-size="11" fill="#1F2937">✓ Code review gates reject experience-* calling backends</text>
-          <text x="780" y="328" font-size="11" fill="#1F2937">✓ Architectural Decision Records for ServiceCallout chains</text>
-          <text x="780" y="350" font-size="11" fill="#1F2937">✓ API Products + RBAC limit consumer access by class</text>
-          <text x="780" y="376" font-size="11" font-weight="600" fill="#2F855A">→ Same architectural outcome · different enforcement model</text>
+          <!-- Caption noting equality -->
+          <text x="960" y="218" text-anchor="middle" font-size="10" fill="#0F2A47" font-style="italic">All three are siblings. Runtime imposes no order, no hierarchy, no layering.</text>
+
+          <!-- Many arrows fanning to backend pool -->
+          <line x1="780" y1="234" x2="820" y2="295" stroke="#1A73E8" stroke-width="1.5" marker-end="url(#htArrowBlue)"/>
+          <line x1="805" y1="234" x2="900" y2="295" stroke="#1A73E8" stroke-width="1.5" marker-end="url(#htArrowBlue)"/>
+          <line x1="830" y1="234" x2="980" y2="295" stroke="#1A73E8" stroke-width="1.5" marker-end="url(#htArrowBlue)"/>
+          <line x1="937" y1="234" x2="900" y2="295" stroke="#1A73E8" stroke-width="1.5" marker-end="url(#htArrowBlue)"/>
+          <line x1="962" y1="234" x2="980" y2="295" stroke="#1A73E8" stroke-width="1.5" marker-end="url(#htArrowBlue)"/>
+          <line x1="987" y1="234" x2="1060" y2="295" stroke="#1A73E8" stroke-width="1.5" marker-end="url(#htArrowBlue)"/>
+          <line x1="1094" y1="234" x2="1060" y2="295" stroke="#1A73E8" stroke-width="1.5" marker-end="url(#htArrowBlue)"/>
+          <line x1="1119" y1="234" x2="1100" y2="295" stroke="#1A73E8" stroke-width="1.5" marker-end="url(#htArrowBlue)"/>
+          <line x1="1144" y1="234" x2="1140" y2="295" stroke="#1A73E8" stroke-width="1.5" marker-end="url(#htArrowBlue)"/>
+
+          <text x="960" y="262" text-anchor="middle" font-size="10" font-weight="700" fill="#1A73E8" font-style="italic">any proxy → any backend · runtime permits everything</text>
+
+          <!-- Backends -->
+          <rect x="780" y="300" width="360" height="40" rx="6" fill="url(#htBackend)"/>
+          <text x="960" y="324" text-anchor="middle" font-size="11" font-weight="700" fill="white">Backends · Canvas · Workday · SIS · SAP</text>
+
+          <!-- Governance overlay - the bridge -->
+          <g>
+            <rect x="710" y="360" width="500" height="215" rx="10" fill="white" stroke="#B8860B" stroke-width="2" stroke-dasharray="6,4"/>
+            <rect x="800" y="351" width="320" height="20" rx="3" fill="#B8860B"/>
+            <text x="960" y="365" text-anchor="middle" font-size="10" font-weight="700" fill="white" letter-spacing="2">GOVERNANCE OVERLAY · THE BRIDGE</text>
+
+            <text x="730" y="395" font-size="10.5" font-weight="700" fill="#0F2A47">REPLACES the runtime wall with four enforcement points:</text>
+
+            <circle cx="738" cy="416" r="3" fill="#B8860B"/>
+            <text x="748" y="420" font-size="10.5" fill="#1F2937"><tspan font-weight="700">Naming convention</tspan> · proxy prefix system-* / process-* / experience-* (lint-checked in CI)</text>
+
+            <circle cx="738" cy="440" r="3" fill="#B8860B"/>
+            <text x="748" y="444" font-size="10.5" fill="#1F2937"><tspan font-weight="700">Code review gates</tspan> · experience-* PRs with TargetEndpoint to a backend are rejected</text>
+
+            <circle cx="738" cy="464" r="3" fill="#B8860B"/>
+            <text x="748" y="468" font-size="10.5" fill="#1F2937"><tspan font-weight="700">ADRs in repo</tspan> · every ServiceCallout chain documented + signed-off in version control</text>
+
+            <circle cx="738" cy="488" r="3" fill="#B8860B"/>
+            <text x="748" y="492" font-size="10.5" fill="#1F2937"><tspan font-weight="700">API Products + RBAC</tspan> · consumer apps can only resolve proxies that match their scope</text>
+
+            <line x1="730" y1="508" x2="1190" y2="508" stroke="#E5E7EB" stroke-width="1"/>
+            <text x="730" y="528" font-size="11" font-weight="700" fill="#2F855A">→ Same architectural outcome</text>
+            <text x="730" y="546" font-size="10" fill="#1F2937">Discipline lives in the team and the pipeline, not the runtime. The architect's job is to write the rules; the platform team's job is to keep the gates honest.</text>
+            <text x="730" y="566" font-size="10" fill="#6B7280" font-style="italic">Trade-off: a misnamed proxy or a missed PR review can break the layering — Mule made that impossible.</text>
+          </g>
         </g>
       </svg>
 
@@ -1498,7 +1584,7 @@
         Mirror for the migration. Native for everything after.
       </p>
 
-      <svg class="arch-svg" viewBox="0 0 1280 540" xmlns="http://www.w3.org/2000/svg">
+      <svg class="arch-svg" viewBox="0 0 1280 820" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="nvMirror" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#E15A24"/>
@@ -1516,123 +1602,254 @@
             <stop offset="0%" stop-color="#2F855A"/>
             <stop offset="100%" stop-color="#22543D"/>
           </linearGradient>
+          <linearGradient id="nvBackend" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#4B5563"/>
+            <stop offset="100%" stop-color="#1F2937"/>
+          </linearGradient>
           <marker id="nvArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
             <path d="M0,0 L10,5 L0,10 z" fill="#6B7280"/>
+          </marker>
+          <marker id="nvArrowGold" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#B8860B"/>
+          </marker>
+          <marker id="nvArrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#22543D"/>
           </marker>
           <filter id="nvShadow" x="-10%" y="-10%" width="120%" height="120%">
             <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0F2A47" flood-opacity="0.12"/>
           </filter>
         </defs>
 
-        <!-- LEFT · MIRROR (what we built) -->
+        <!-- ===================== LEFT · MIRROR ===================== -->
         <g filter="url(#nvShadow)">
-          <rect x="40" y="30" width="540" height="490" rx="12" fill="#FBE4D7"/>
-          <text x="310" y="62" text-anchor="middle" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="3">MIRROR APPROACH · MIGRATION OPTIMIZATION</text>
-          <text x="310" y="82" text-anchor="middle" font-size="11" fill="#6B7280" font-style="italic">Three proxies that match the three Mule projects</text>
+          <rect x="30" y="30" width="600" height="700" rx="12" fill="#FBE4D7"/>
+          <text x="330" y="60" text-anchor="middle" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="3">MIRROR APPROACH · MIGRATION OPTIMISATION</text>
+          <text x="330" y="78" text-anchor="middle" font-size="10.5" fill="#6B7280" font-style="italic">3 proxies that match the 3 Mule projects · policies inlined in every proxy</text>
 
-          <rect x="80" y="105" width="460" height="80" rx="8" fill="url(#nvMirror)"/>
-          <text x="310" y="132" text-anchor="middle" font-size="14" font-weight="700" fill="white">system-canvas-api</text>
-          <text x="310" y="152" text-anchor="middle" font-size="11" fill="#FCF3D9">/system-canvas/v3/courses/{id}</text>
-          <text x="310" y="170" text-anchor="middle" font-size="10" fill="#FCF3D9">26 endpoints · policies inlined per proxy</text>
+          <!-- Consumer band -->
+          <rect x="60" y="98" width="540" height="36" rx="6" fill="white" stroke="#C0481B" stroke-width="1.5"/>
+          <text x="330" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="#C0481B">28 CONSUMER APPS · same hostnames, same URIs, same tokens as Mule</text>
 
-          <rect x="80" y="200" width="460" height="80" rx="8" fill="url(#nvMirror)"/>
-          <text x="310" y="227" text-anchor="middle" font-size="14" font-weight="700" fill="white">experience-canvas-api</text>
-          <text x="310" y="247" text-anchor="middle" font-size="11" fill="#FCF3D9">/canvas/v3/...</text>
-          <text x="310" y="265" text-anchor="middle" font-size="10" fill="#FCF3D9">3 endpoints · OAuth, FERPA copied here too</text>
+          <!-- Proxy 1: system-canvas-api -->
+          <g>
+            <rect x="60" y="148" width="540" height="118" rx="8" fill="white" stroke="#C0481B" stroke-width="2"/>
+            <rect x="60" y="148" width="540" height="36" rx="8" fill="url(#nvMirror)"/>
+            <rect x="60" y="170" width="540" height="14" fill="url(#nvMirror)"/>
+            <text x="76" y="172" font-size="13" font-weight="700" fill="white">system-canvas-api</text>
+            <text x="76" y="194" font-size="10" fill="#6B7280">basepath</text>
+            <text x="135" y="194" font-size="10" font-family="monospace" fill="#1F2937">/system-canvas/v3/courses/{id}  ·  26 endpoints</text>
+            <!-- Inlined policies row -->
+            <text x="76" y="216" font-size="9" font-weight="700" fill="#C0481B" letter-spacing="1">INLINED POLICIES · COPY #1</text>
+            <g font-size="9" font-weight="600">
+              <rect x="76" y="222" width="76" height="22" rx="3" fill="#FDE7DA" stroke="#C0481B" stroke-width="0.8"/><text x="114" y="237" text-anchor="middle" fill="#7B2D14">OAuth-verify</text>
+              <rect x="158" y="222" width="56" height="22" rx="3" fill="#FDE7DA" stroke="#C0481B" stroke-width="0.8"/><text x="186" y="237" text-anchor="middle" fill="#7B2D14">Quota</text>
+              <rect x="220" y="222" width="76" height="22" rx="3" fill="#FDE7DA" stroke="#C0481B" stroke-width="0.8"/><text x="258" y="237" text-anchor="middle" fill="#7B2D14">SpikeArrest</text>
+              <rect x="302" y="222" width="76" height="22" rx="3" fill="#FDE7DA" stroke="#C0481B" stroke-width="0.8"/><text x="340" y="237" text-anchor="middle" fill="#7B2D14">FERPA-redact</text>
+              <rect x="384" y="222" width="62" height="22" rx="3" fill="#FDE7DA" stroke="#C0481B" stroke-width="0.8"/><text x="415" y="237" text-anchor="middle" fill="#7B2D14">Logging</text>
+              <rect x="452" y="222" width="76" height="22" rx="3" fill="#FDE7DA" stroke="#C0481B" stroke-width="0.8"/><text x="490" y="237" text-anchor="middle" fill="#7B2D14">ThreatProtect</text>
+            </g>
+            <text x="540" y="259" text-anchor="end" font-size="9" fill="#C0481B" font-style="italic">6 policies in this proxy.xml</text>
+          </g>
 
-          <rect x="80" y="295" width="460" height="80" rx="8" fill="url(#nvMirror)"/>
-          <text x="310" y="322" text-anchor="middle" font-size="14" font-weight="700" fill="white">process-canvas-sis-api</text>
-          <text x="310" y="342" text-anchor="middle" font-size="11" fill="#FCF3D9">/process-canvas-sis/v3/...</text>
-          <text x="310" y="360" text-anchor="middle" font-size="10" fill="#FCF3D9">4 endpoints · third copy of policies</text>
+          <!-- Proxy 2: experience-canvas-api -->
+          <g>
+            <rect x="60" y="278" width="540" height="118" rx="8" fill="white" stroke="#C0481B" stroke-width="2"/>
+            <rect x="60" y="278" width="540" height="36" rx="8" fill="url(#nvMirror)"/>
+            <rect x="60" y="300" width="540" height="14" fill="url(#nvMirror)"/>
+            <text x="76" y="302" font-size="13" font-weight="700" fill="white">experience-canvas-api</text>
+            <text x="76" y="324" font-size="10" fill="#6B7280">basepath</text>
+            <text x="135" y="324" font-size="10" font-family="monospace" fill="#1F2937">/canvas/v3/...  ·  3 endpoints</text>
+            <text x="76" y="346" font-size="9" font-weight="700" fill="#C0481B" letter-spacing="1">INLINED POLICIES · COPY #2 (same six, duplicated)</text>
+            <g font-size="9" font-weight="600">
+              <rect x="76" y="352" width="76" height="22" rx="3" fill="#FDE7DA" stroke="#C0481B" stroke-width="0.8"/><text x="114" y="367" text-anchor="middle" fill="#7B2D14">OAuth-verify</text>
+              <rect x="158" y="352" width="56" height="22" rx="3" fill="#FDE7DA" stroke="#C0481B" stroke-width="0.8"/><text x="186" y="367" text-anchor="middle" fill="#7B2D14">Quota</text>
+              <rect x="220" y="352" width="76" height="22" rx="3" fill="#FDE7DA" stroke="#C0481B" stroke-width="0.8"/><text x="258" y="367" text-anchor="middle" fill="#7B2D14">SpikeArrest</text>
+              <rect x="302" y="352" width="76" height="22" rx="3" fill="#FDE7DA" stroke="#C0481B" stroke-width="0.8"/><text x="340" y="367" text-anchor="middle" fill="#7B2D14">FERPA-redact</text>
+              <rect x="384" y="352" width="62" height="22" rx="3" fill="#FDE7DA" stroke="#C0481B" stroke-width="0.8"/><text x="415" y="367" text-anchor="middle" fill="#7B2D14">Logging</text>
+              <rect x="452" y="352" width="76" height="22" rx="3" fill="#FDE7DA" stroke="#C0481B" stroke-width="0.8"/><text x="490" y="367" text-anchor="middle" fill="#7B2D14">ThreatProtect</text>
+            </g>
+            <text x="540" y="389" text-anchor="end" font-size="9" fill="#C0481B" font-style="italic">6 policies in this proxy.xml</text>
+          </g>
 
-          <rect x="80" y="400" width="460" height="100" rx="8" fill="white" stroke="#E15A24" stroke-width="2"/>
-          <text x="100" y="424" font-size="11" font-weight="700" fill="#C0481B">CLIENT IMPACT · ZERO</text>
-          <text x="100" y="448" font-size="11" fill="#1F2937">All 28 consumer apps re-point host. Done.</text>
-          <text x="100" y="468" font-size="11" font-weight="700" fill="#C0481B">TIMELINE · 14 WEEKS</text>
-          <text x="100" y="488" font-size="11" fill="#1F2937">~30% of Apigee features used. Apigee acts as faster Mule.</text>
+          <!-- Proxy 3: process-canvas-sis-api -->
+          <g>
+            <rect x="60" y="408" width="540" height="118" rx="8" fill="white" stroke="#C0481B" stroke-width="2"/>
+            <rect x="60" y="408" width="540" height="36" rx="8" fill="url(#nvMirror)"/>
+            <rect x="60" y="430" width="540" height="14" fill="url(#nvMirror)"/>
+            <text x="76" y="432" font-size="13" font-weight="700" fill="white">process-canvas-sis-api</text>
+            <text x="76" y="454" font-size="10" fill="#6B7280">basepath</text>
+            <text x="135" y="454" font-size="10" font-family="monospace" fill="#1F2937">/process-canvas-sis/v3/...  ·  4 endpoints</text>
+            <text x="76" y="476" font-size="9" font-weight="700" fill="#C0481B" letter-spacing="1">INLINED POLICIES · COPY #3 (same six, duplicated again)</text>
+            <g font-size="9" font-weight="600">
+              <rect x="76" y="482" width="76" height="22" rx="3" fill="#FDE7DA" stroke="#C0481B" stroke-width="0.8"/><text x="114" y="497" text-anchor="middle" fill="#7B2D14">OAuth-verify</text>
+              <rect x="158" y="482" width="56" height="22" rx="3" fill="#FDE7DA" stroke="#C0481B" stroke-width="0.8"/><text x="186" y="497" text-anchor="middle" fill="#7B2D14">Quota</text>
+              <rect x="220" y="482" width="76" height="22" rx="3" fill="#FDE7DA" stroke="#C0481B" stroke-width="0.8"/><text x="258" y="497" text-anchor="middle" fill="#7B2D14">SpikeArrest</text>
+              <rect x="302" y="482" width="76" height="22" rx="3" fill="#FDE7DA" stroke="#C0481B" stroke-width="0.8"/><text x="340" y="497" text-anchor="middle" fill="#7B2D14">FERPA-redact</text>
+              <rect x="384" y="482" width="62" height="22" rx="3" fill="#FDE7DA" stroke="#C0481B" stroke-width="0.8"/><text x="415" y="497" text-anchor="middle" fill="#7B2D14">Logging</text>
+              <rect x="452" y="482" width="76" height="22" rx="3" fill="#FDE7DA" stroke="#C0481B" stroke-width="0.8"/><text x="490" y="497" text-anchor="middle" fill="#7B2D14">ThreatProtect</text>
+            </g>
+            <text x="540" y="519" text-anchor="end" font-size="9" fill="#C0481B" font-style="italic">6 policies in this proxy.xml</text>
+          </g>
+
+          <!-- Policy maths callout -->
+          <rect x="60" y="540" width="540" height="58" rx="6" fill="#7B2D14"/>
+          <text x="78" y="562" font-size="11" font-weight="700" fill="white">POLICY COPIES IN GATEWAY</text>
+          <text x="78" y="582" font-size="11" fill="#FCE4D6">3 proxies × 6 cross-cutting policies = <tspan font-weight="700" font-size="14" fill="white">18 inlined copies</tspan></text>
+          <text x="320" y="582" font-size="10" fill="#FCE4D6" font-style="italic">edit one policy → patch 3 files → redeploy 3 proxies</text>
+
+          <!-- Shared backend -->
+          <line x1="330" y1="608" x2="330" y2="630" stroke="#1F2937" stroke-width="2" marker-end="url(#nvArrow)"/>
+          <rect x="120" y="635" width="420" height="40" rx="6" fill="url(#nvBackend)"/>
+          <text x="330" y="660" text-anchor="middle" font-size="11" font-weight="700" fill="white">Canvas LMS · via Tailscale Funnel</text>
+
+          <!-- Bottom KPIs -->
+          <rect x="60" y="685" width="540" height="35" rx="6" fill="white" stroke="#C0481B" stroke-width="1.5"/>
+          <text x="76" y="708" font-size="10.5" fill="#1F2937"><tspan font-weight="700" fill="#C0481B">Client impact:</tspan> zero  ·  <tspan font-weight="700" fill="#C0481B">Timeline:</tspan> 14 weeks  ·  <tspan font-weight="700" fill="#C0481B">Apigee feature use:</tspan> ~30%</text>
         </g>
 
-        <!-- ARROW -->
-        <g transform="translate(600, 270)">
-          <text x="40" y="-30" text-anchor="middle" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="2">CONTRASTS</text>
-          <text x="40" y="-15" text-anchor="middle" font-size="10" fill="#6B7280" font-style="italic">same backend</text>
-          <line x1="0" y1="0" x2="80" y2="0" stroke="#0F2A47" stroke-width="2"/>
-          <line x1="80" y1="0" x2="0" y2="0" stroke="#0F2A47" stroke-width="2"/>
-          <text x="40" y="20" text-anchor="middle" font-size="10" fill="#6B7280" font-style="italic">different shape</text>
+        <!-- ===================== CENTRE · CONTRAST ===================== -->
+        <g transform="translate(636, 380)">
+          <text x="4" y="-40" text-anchor="middle" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="3">SAME BACKEND</text>
+          <text x="4" y="-24" text-anchor="middle" font-size="10" fill="#6B7280" font-style="italic">different gateway shape</text>
+          <line x1="-20" y1="0" x2="28" y2="0" stroke="#0F2A47" stroke-width="2"/>
+          <polygon points="-20,0 -14,-5 -14,5" fill="#0F2A47"/>
+          <polygon points="28,0 22,-5 22,5" fill="#0F2A47"/>
+          <text x="4" y="22" text-anchor="middle" font-size="10" fill="#6B7280" font-style="italic">policy ownership</text>
+          <text x="4" y="36" text-anchor="middle" font-size="10" fill="#6B7280" font-style="italic">differs entirely</text>
         </g>
 
-        <!-- RIGHT · NATIVE -->
+        <!-- ===================== RIGHT · NATIVE ===================== -->
         <g filter="url(#nvShadow)">
-          <rect x="700" y="30" width="540" height="490" rx="12" fill="#D7E3FC"/>
-          <text x="970" y="62" text-anchor="middle" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="3">NATIVE APIGEE · STANDARD GOING FORWARD</text>
-          <text x="970" y="82" text-anchor="middle" font-size="11" fill="#6B7280" font-style="italic">Domain proxies + Shared Flows + API Products</text>
+          <rect x="670" y="30" width="600" height="700" rx="12" fill="#D7E3FC"/>
+          <text x="970" y="60" text-anchor="middle" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="3">NATIVE APIGEE · FORWARD STANDARD</text>
+          <text x="970" y="78" text-anchor="middle" font-size="10.5" fill="#6B7280" font-style="italic">9 domain proxies · 1 Shared Flow bundle · API Products as consumer entry-point</text>
 
-          <!-- Top row: 4 domain proxies -->
-          <rect x="725" y="105" width="120" height="60" rx="6" fill="url(#nvNative)"/>
-          <text x="785" y="128" text-anchor="middle" font-size="11" font-weight="700" fill="white">courses-api</text>
-          <text x="785" y="148" text-anchor="middle" font-size="9" fill="#E8F0FE">/courses/v1</text>
+          <!-- API Products row (consumer-facing, first) -->
+          <text x="970" y="104" text-anchor="middle" font-size="10" font-weight="700" fill="#22543D" letter-spacing="2">API PRODUCTS · CONSUMER ENTRY-POINT · scopes + quotas + Developer Portal</text>
 
-          <rect x="855" y="105" width="120" height="60" rx="6" fill="url(#nvNative)"/>
-          <text x="915" y="128" text-anchor="middle" font-size="11" font-weight="700" fill="white">enrollments-api</text>
-          <text x="915" y="148" text-anchor="middle" font-size="9" fill="#E8F0FE">/enrollments/v1</text>
+          <rect x="690" y="114" width="135" height="50" rx="6" fill="url(#nvProduct)"/>
+          <text x="757" y="134" text-anchor="middle" font-size="11" font-weight="700" fill="white">student-app</text>
+          <text x="757" y="151" text-anchor="middle" font-size="9" fill="#D4E9D2">student scope · no PII outside self</text>
 
-          <rect x="985" y="105" width="120" height="60" rx="6" fill="url(#nvNative)"/>
-          <text x="1045" y="128" text-anchor="middle" font-size="11" font-weight="700" fill="white">assignments-api</text>
-          <text x="1045" y="148" text-anchor="middle" font-size="9" fill="#E8F0FE">/assignments/v1</text>
+          <rect x="833" y="114" width="135" height="50" rx="6" fill="url(#nvProduct)"/>
+          <text x="900" y="134" text-anchor="middle" font-size="11" font-weight="700" fill="white">faculty-app</text>
+          <text x="900" y="151" text-anchor="middle" font-size="9" fill="#D4E9D2">faculty scope · class rosters</text>
 
-          <rect x="1115" y="105" width="120" height="60" rx="6" fill="url(#nvNative)"/>
-          <text x="1175" y="128" text-anchor="middle" font-size="11" font-weight="700" fill="white">discussions-api</text>
-          <text x="1175" y="148" text-anchor="middle" font-size="9" fill="#E8F0FE">/discussions/v1</text>
+          <rect x="976" y="114" width="135" height="50" rx="6" fill="url(#nvProduct)"/>
+          <text x="1043" y="134" text-anchor="middle" font-size="11" font-weight="700" fill="white">sis-integration</text>
+          <text x="1043" y="151" text-anchor="middle" font-size="9" fill="#D4E9D2">system scope · batch + jobs</text>
 
-          <!-- Second row: 4 more -->
-          <rect x="725" y="172" width="120" height="60" rx="6" fill="url(#nvNative)"/>
-          <text x="785" y="195" text-anchor="middle" font-size="11" font-weight="700" fill="white">users-api</text>
-          <text x="785" y="215" text-anchor="middle" font-size="9" fill="#E8F0FE">/users/v1</text>
+          <rect x="1119" y="114" width="135" height="50" rx="6" fill="url(#nvProduct)"/>
+          <text x="1186" y="134" text-anchor="middle" font-size="11" font-weight="700" fill="white">analytics</text>
+          <text x="1186" y="151" text-anchor="middle" font-size="9" fill="#D4E9D2">read-only · FERPA-stripped</text>
 
-          <rect x="855" y="172" width="120" height="60" rx="6" fill="url(#nvNative)"/>
-          <text x="915" y="195" text-anchor="middle" font-size="11" font-weight="700" fill="white">terms-api</text>
-          <text x="915" y="215" text-anchor="middle" font-size="9" fill="#E8F0FE">/terms/v1</text>
+          <!-- Product → proxy bundling lines (selective, showing the concept) -->
+          <g stroke="#22543D" stroke-width="1" opacity="0.55" fill="none">
+            <line x1="725" y1="166" x2="745" y2="200" marker-end="url(#nvArrowGreen)"/>
+            <line x1="757" y1="166" x2="865" y2="200" marker-end="url(#nvArrowGreen)"/>
+            <line x1="789" y1="166" x2="985" y2="200" marker-end="url(#nvArrowGreen)"/>
+            <line x1="868" y1="166" x2="745" y2="200" marker-end="url(#nvArrowGreen)"/>
+            <line x1="900" y1="166" x2="865" y2="200" marker-end="url(#nvArrowGreen)"/>
+            <line x1="932" y1="166" x2="985" y2="200" marker-end="url(#nvArrowGreen)"/>
+            <line x1="1011" y1="166" x2="985" y2="200" marker-end="url(#nvArrowGreen)"/>
+            <line x1="1043" y1="166" x2="1105" y2="200" marker-end="url(#nvArrowGreen)"/>
+            <line x1="1075" y1="166" x2="1225" y2="200" marker-end="url(#nvArrowGreen)"/>
+            <line x1="1154" y1="166" x2="745" y2="200" marker-end="url(#nvArrowGreen)"/>
+            <line x1="1186" y1="166" x2="865" y2="200" marker-end="url(#nvArrowGreen)"/>
+            <line x1="1218" y1="166" x2="1105" y2="200" marker-end="url(#nvArrowGreen)"/>
+          </g>
+          <text x="970" y="183" text-anchor="middle" font-size="9" fill="#22543D" font-style="italic">each Product bundles the proxies its consumer is allowed to call</text>
 
-          <rect x="985" y="172" width="120" height="60" rx="6" fill="url(#nvNative)"/>
-          <text x="1045" y="195" text-anchor="middle" font-size="11" font-weight="700" fill="white">sis-jobs-api</text>
-          <text x="1045" y="215" text-anchor="middle" font-size="9" fill="#E8F0FE">/sis-jobs/v1</text>
+          <!-- 9 domain proxies (3 rows of 3, last row centred) -->
+          <text x="970" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#1A73E8" letter-spacing="2">DOMAIN-ALIGNED API PROXIES · 9 total</text>
 
-          <rect x="1115" y="172" width="120" height="60" rx="6" fill="url(#nvNative)"/>
-          <text x="1175" y="195" text-anchor="middle" font-size="11" font-weight="700" fill="white">identity-api</text>
-          <text x="1175" y="215" text-anchor="middle" font-size="9" fill="#E8F0FE">/identity/v1</text>
+          <g>
+            <rect x="690" y="208" width="180" height="50" rx="6" fill="url(#nvNative)"/>
+            <text x="780" y="227" text-anchor="middle" font-size="11" font-weight="700" fill="white">courses-api</text>
+            <text x="780" y="245" text-anchor="middle" font-size="9" font-family="monospace" fill="#E8F0FE">/courses/v1/{id}</text>
 
-          <!-- Shared Flows row -->
-          <text x="970" y="258" text-anchor="middle" font-size="10" font-weight="700" fill="#6B7280" letter-spacing="1">SHARED FLOWS · ATTACHED TO EVERY PROXY</text>
+            <rect x="880" y="208" width="180" height="50" rx="6" fill="url(#nvNative)"/>
+            <text x="970" y="227" text-anchor="middle" font-size="11" font-weight="700" fill="white">enrollments-api</text>
+            <text x="970" y="245" text-anchor="middle" font-size="9" font-family="monospace" fill="#E8F0FE">/enrollments/v1</text>
 
-          <rect x="725" y="270" width="510" height="50" rx="6" fill="url(#nvShared)"/>
-          <text x="980" y="293" text-anchor="middle" font-size="11" font-weight="700" fill="white">sf-oauth-verify · sf-quota · sf-spike-arrest · sf-ferpa-redaction</text>
-          <text x="980" y="310" text-anchor="middle" font-size="10" fill="#FBE9C7">sf-logging · sf-threat-protection · one change applied everywhere</text>
+            <rect x="1070" y="208" width="180" height="50" rx="6" fill="url(#nvNative)"/>
+            <text x="1160" y="227" text-anchor="middle" font-size="11" font-weight="700" fill="white">assignments-api</text>
+            <text x="1160" y="245" text-anchor="middle" font-size="9" font-family="monospace" fill="#E8F0FE">/assignments/v1</text>
 
-          <!-- API Products row -->
-          <text x="970" y="350" text-anchor="middle" font-size="10" font-weight="700" fill="#6B7280" letter-spacing="1">API PRODUCTS · CONSUMER BUNDLES</text>
+            <rect x="690" y="266" width="180" height="50" rx="6" fill="url(#nvNative)"/>
+            <text x="780" y="285" text-anchor="middle" font-size="11" font-weight="700" fill="white">discussions-api</text>
+            <text x="780" y="303" text-anchor="middle" font-size="9" font-family="monospace" fill="#E8F0FE">/discussions/v1</text>
 
-          <rect x="725" y="362" width="123" height="44" rx="6" fill="url(#nvProduct)"/>
-          <text x="786" y="382" text-anchor="middle" font-size="10" font-weight="700" fill="white">student-app</text>
-          <text x="786" y="398" text-anchor="middle" font-size="9" fill="#D4E9D2">student scope</text>
+            <rect x="880" y="266" width="180" height="50" rx="6" fill="url(#nvNative)"/>
+            <text x="970" y="285" text-anchor="middle" font-size="11" font-weight="700" fill="white">users-api</text>
+            <text x="970" y="303" text-anchor="middle" font-size="9" font-family="monospace" fill="#E8F0FE">/users/v1</text>
 
-          <rect x="858" y="362" width="123" height="44" rx="6" fill="url(#nvProduct)"/>
-          <text x="919" y="382" text-anchor="middle" font-size="10" font-weight="700" fill="white">faculty-app</text>
-          <text x="919" y="398" text-anchor="middle" font-size="9" fill="#D4E9D2">faculty scope</text>
+            <rect x="1070" y="266" width="180" height="50" rx="6" fill="url(#nvNative)"/>
+            <text x="1160" y="285" text-anchor="middle" font-size="11" font-weight="700" fill="white">terms-api</text>
+            <text x="1160" y="303" text-anchor="middle" font-size="9" font-family="monospace" fill="#E8F0FE">/terms/v1</text>
 
-          <rect x="991" y="362" width="123" height="44" rx="6" fill="url(#nvProduct)"/>
-          <text x="1052" y="382" text-anchor="middle" font-size="10" font-weight="700" fill="white">sis-integration</text>
-          <text x="1052" y="398" text-anchor="middle" font-size="9" fill="#D4E9D2">system scope</text>
+            <rect x="690" y="324" width="180" height="50" rx="6" fill="url(#nvNative)"/>
+            <text x="780" y="343" text-anchor="middle" font-size="11" font-weight="700" fill="white">conversations-api</text>
+            <text x="780" y="361" text-anchor="middle" font-size="9" font-family="monospace" fill="#E8F0FE">/conversations/v1</text>
 
-          <rect x="1124" y="362" width="111" height="44" rx="6" fill="url(#nvProduct)"/>
-          <text x="1179" y="382" text-anchor="middle" font-size="10" font-weight="700" fill="white">analytics</text>
-          <text x="1179" y="398" text-anchor="middle" font-size="9" fill="#D4E9D2">no-PII scope</text>
+            <rect x="880" y="324" width="180" height="50" rx="6" fill="url(#nvNative)"/>
+            <text x="970" y="343" text-anchor="middle" font-size="11" font-weight="700" fill="white">sis-jobs-api</text>
+            <text x="970" y="361" text-anchor="middle" font-size="9" font-family="monospace" fill="#E8F0FE">/sis-jobs/v1</text>
 
-          <!-- Trade-off card -->
-          <rect x="725" y="425" width="510" height="80" rx="8" fill="white" stroke="#1A73E8" stroke-width="2"/>
-          <text x="745" y="448" font-size="11" font-weight="700" fill="#1A73E8">CLIENT IMPACT · BREAKING</text>
-          <text x="745" y="468" font-size="11" fill="#1F2937">All 28 apps update URLs + OAuth scopes. Coordinated cutover.</text>
-          <text x="745" y="488" font-size="11" font-weight="700" fill="#1A73E8">TIMELINE · 24–30 WEEKS  ·  ~90% Apigee features used</text>
+            <rect x="1070" y="324" width="180" height="50" rx="6" fill="url(#nvNative)"/>
+            <text x="1160" y="343" text-anchor="middle" font-size="11" font-weight="700" fill="white">identity-api</text>
+            <text x="1160" y="361" text-anchor="middle" font-size="9" font-family="monospace" fill="#E8F0FE">/identity/v1</text>
+          </g>
+
+          <!-- FlowCallout lines from every proxy to the single shared-flow bundle -->
+          <g stroke="#B8860B" stroke-width="1" opacity="0.7" fill="none">
+            <line x1="780" y1="258" x2="970" y2="410" marker-end="url(#nvArrowGold)"/>
+            <line x1="970" y1="258" x2="970" y2="410" marker-end="url(#nvArrowGold)"/>
+            <line x1="1160" y1="258" x2="970" y2="410" marker-end="url(#nvArrowGold)"/>
+            <line x1="780" y1="316" x2="970" y2="410" marker-end="url(#nvArrowGold)"/>
+            <line x1="970" y1="316" x2="970" y2="410" marker-end="url(#nvArrowGold)"/>
+            <line x1="1160" y1="316" x2="970" y2="410" marker-end="url(#nvArrowGold)"/>
+            <line x1="780" y1="374" x2="970" y2="410" marker-end="url(#nvArrowGold)"/>
+            <line x1="970" y1="374" x2="970" y2="410" marker-end="url(#nvArrowGold)"/>
+            <line x1="1160" y1="374" x2="970" y2="410" marker-end="url(#nvArrowGold)"/>
+          </g>
+          <text x="970" y="402" text-anchor="middle" font-size="9" fill="#8B6508" font-style="italic">every proxy uses &lt;FlowCallout&gt; to reference the bundle below</text>
+
+          <!-- Shared flow bundle - ONE set of 6 -->
+          <rect x="690" y="416" width="560" height="98" rx="8" fill="white" stroke="#B8860B" stroke-width="2.5"/>
+          <rect x="690" y="416" width="560" height="28" rx="8" fill="url(#nvShared)"/>
+          <rect x="690" y="430" width="560" height="14" fill="url(#nvShared)"/>
+          <text x="704" y="436" font-size="12" font-weight="700" fill="white">shared-flows · ONE bundle, referenced by every proxy above</text>
+          <g font-size="10" font-weight="600">
+            <rect x="704" y="454" width="88" height="22" rx="3" fill="#FCF3D9" stroke="#B8860B" stroke-width="1"/><text x="748" y="469" text-anchor="middle" fill="#7A5A00">sf-oauth-verify</text>
+            <rect x="798" y="454" width="62" height="22" rx="3" fill="#FCF3D9" stroke="#B8860B" stroke-width="1"/><text x="829" y="469" text-anchor="middle" fill="#7A5A00">sf-quota</text>
+            <rect x="866" y="454" width="92" height="22" rx="3" fill="#FCF3D9" stroke="#B8860B" stroke-width="1"/><text x="912" y="469" text-anchor="middle" fill="#7A5A00">sf-spike-arrest</text>
+            <rect x="964" y="454" width="108" height="22" rx="3" fill="#FCF3D9" stroke="#B8860B" stroke-width="1"/><text x="1018" y="469" text-anchor="middle" fill="#7A5A00">sf-ferpa-redaction</text>
+            <rect x="1078" y="454" width="70" height="22" rx="3" fill="#FCF3D9" stroke="#B8860B" stroke-width="1"/><text x="1113" y="469" text-anchor="middle" fill="#7A5A00">sf-logging</text>
+            <rect x="1154" y="454" width="92" height="22" rx="3" fill="#FCF3D9" stroke="#B8860B" stroke-width="1"/><text x="1200" y="469" text-anchor="middle" fill="#7A5A00">sf-threat-protect</text>
+          </g>
+          <text x="970" y="498" text-anchor="middle" font-size="10" fill="#1F2937" font-style="italic">one edit, one redeploy of the bundle → every proxy picks up the change</text>
+
+          <!-- Policy maths callout (mirror of left) -->
+          <rect x="690" y="528" width="560" height="58" rx="6" fill="#0F2A47"/>
+          <text x="708" y="550" font-size="11" font-weight="700" fill="#E8F0FE">POLICY COPIES IN GATEWAY</text>
+          <text x="708" y="570" font-size="11" fill="#D7E3FC">9 proxies × 0 inlined + 1 shared bundle × 6 policies = <tspan font-weight="700" font-size="14" fill="#F0D78A">6 policies, total</tspan></text>
+          <text x="708" y="585" font-size="10" fill="#A5B4CB" font-style="italic">a CVE in OAuth-verify? one PR, one deploy, covers all 9 proxies.</text>
+
+          <!-- Shared backend -->
+          <line x1="970" y1="596" x2="970" y2="618" stroke="#1F2937" stroke-width="2" marker-end="url(#nvArrow)"/>
+          <rect x="760" y="623" width="420" height="40" rx="6" fill="url(#nvBackend)"/>
+          <text x="970" y="648" text-anchor="middle" font-size="11" font-weight="700" fill="white">Canvas LMS · via Tailscale Funnel  (identical backend)</text>
+
+          <!-- Bottom KPIs -->
+          <rect x="690" y="673" width="560" height="35" rx="6" fill="white" stroke="#1A73E8" stroke-width="1.5"/>
+          <text x="708" y="696" font-size="10.5" fill="#1F2937"><tspan font-weight="700" fill="#1A73E8">Client impact:</tspan> breaking (URL + scope changes)  ·  <tspan font-weight="700" fill="#1A73E8">Timeline:</tspan> 24–30 weeks  ·  <tspan font-weight="700" fill="#1A73E8">Apigee feature use:</tspan> ~90%</text>
         </g>
+
+        <!-- Bottom unifying caption -->
+        <rect x="30" y="752" width="1240" height="50" rx="6" fill="#061A30"/>
+        <text x="650" y="775" text-anchor="middle" font-size="11" font-weight="700" fill="#F0D78A" letter-spacing="2">SAME CANVAS BACKEND · SAME TAILSCALE FUNNEL · DIFFERENT GATEWAY SHAPE</text>
+        <text x="650" y="792" text-anchor="middle" font-size="10.5" fill="#D7E3FC" font-style="italic">Mirror preserves the Mule client contract for migration speed.  Native exposes Apigee's full surface — Shared Flows + API Products — for everything built after.</text>
       </svg>
 
       <h3 style="margin-top: 32px; margin-bottom: 14px; font-size: 18px; color: var(--navy);">Side-by-side trade-offs</h3>
